@@ -4,7 +4,7 @@ export const authService = {
 
   login: async ({ sEmail, sPassword }) => {
     try {
-      const { data } = await clienteAxios.post('/usuarios', { sEmail, sPassword });
+      const { data } = await clienteAxios.post('/auth', { sEmail, sPassword });
       return data;
     } catch (error) {
       throw error?.response?.data?.message || 'Error al iniciar sesión';
@@ -22,7 +22,7 @@ export const authService = {
 
   renewToken: async () => {
     try {
-      const { data } = await clienteAxios.get('/usuarios/renew');
+      const { data } = await clienteAxios.get('/auth/renew');
       return data;
     } catch (error) {
       throw error?.response?.data?.msg || 'Token inválido';
