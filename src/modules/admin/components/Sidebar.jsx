@@ -3,6 +3,8 @@ import { MdDashboard } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { LuClipboardPen } from "react-icons/lu";
+import { FaClipboardUser } from "react-icons/fa6";
 
 export default function Sidebar() {
   const { startLogout } = useAuthStore();
@@ -55,6 +57,24 @@ export default function Sidebar() {
               >
                 <FiUsers size={25}/>
                 <span className="ms-3">Usuarios</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/permisos"}
+                className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              >
+                <LuClipboardPen  size={25}/>
+                <span className="ms-3">Permisos</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/perfiles"}
+                className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              >
+                <FaClipboardUser  size={25}/>
+                <span className="ms-3">Perfiles</span>
               </Link>
             </li>
             <li>

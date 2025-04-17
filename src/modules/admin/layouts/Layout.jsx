@@ -9,6 +9,8 @@ export default function Layout() {
   // Definir títulos por ruta
   const routeTitles = {
     "/usuarios": "Usuarios",
+    "/permisos": "Permisos",
+    "/perfiles": "Perfiles",
   };
 
   // Buscar título basado en la ruta actual
