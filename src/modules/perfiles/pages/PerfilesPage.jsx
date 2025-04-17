@@ -1,6 +1,7 @@
 import { usePerfilStore } from "../hooks/usePerfilStore";
 import { useEffect } from "react";
 import { Header, Perfiles } from "../components";
+import { Link } from "react-router-dom";
 
 export default function PerfilesPage() {
   const { perfiles, isLoadingPerfiles, startPerfiles } = usePerfilStore();
@@ -16,11 +17,10 @@ export default function PerfilesPage() {
   return (
     <>
       <section className="">
-        <Header title="Perfiles" />
+        <Header title="" />
 
-        <div className="mt-5 relative overflow-x-auto  sm:rounded-lg">
+        <div className="mt-5 max-w-4xl relative overflow-x-auto  sm:rounded-lg">
           <div className="flex items-center justify-end flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white ">
-            <label className="sr-only">Search</label>
             <div className="relative">
               <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
@@ -42,10 +42,12 @@ export default function PerfilesPage() {
               <input
                 type="text"
                 id="table-search-users"
-                className="block py-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Search for users"
+                className="block py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                placeholder="Buscar usuarios"
               />
             </div>
+
+              <Link to={"crear"} className="py-2.5 px-5 ml-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Agregar Usuario</Link>
           </div>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">

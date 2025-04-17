@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import {formatearFechaHora} from "../helpers/formatearFechaHora"
+import { Link } from "react-router-dom";
 
 export default function Usuarios({ items }) {
 
@@ -12,13 +13,13 @@ export default function Usuarios({ items }) {
       <td className="px-6 py-4">{items.descripcion}</td>
       <td className="px-6 py-4">{fechaFormateada}</td>
       <td className="px-6 py-4">
-        <a
-          href="#"
+        <Link
+          to={`editar/${items.id}`}
           type="button"
           className="font-medium text-blue-600  hover:underline"
         >
-          Edit user
-        </a>
+          Editar Perfil
+        </Link>
       </td>
     </tr>
   );

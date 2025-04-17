@@ -1,21 +1,29 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation,matchPath } from "react-router-dom";
 
 import useDocumentTitle from "../libs/useDocumentTitle";
 import Sidebar from "../components/Sidebar";
 
 export default function Layout() {
-  const location = useLocation();
-
-  // Definir títulos por ruta
   const routeTitles = {
     "/usuarios": "Usuarios",
     "/permisos": "Permisos",
     "/perfiles": "Perfiles",
+    "/perfiles/crear": "Crear Perfil",
+    "/perfiles/editar/:id": "Editar Perfil",
   };
-
-  // Buscar título basado en la ruta actual
-  const currentTitle = routeTitles[location.pathname] || "Panel Admin";
-
+  
+  const location = useLocation();
+  
+  let currentTitle = "Panel Admin";
+  
+  // Buscar coincidencia con la ruta
+  for (const path in routeTitles) {
+    if (matchPath({ path, end: true }, location.pathname)) {
+      currentTitle = routeTitles[path];
+      break;
+    }
+  }
+  
   useDocumentTitle(`Base | ${currentTitle}`);
 
   return (
