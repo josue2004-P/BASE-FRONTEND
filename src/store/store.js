@@ -16,6 +16,10 @@ import {
   permisoSlice,
 } from "../modules/permisos/store";
 
+import {
+  perfilSlice,
+} from "../modules/perfiles/store";
+
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
@@ -23,7 +27,7 @@ export const store = configureStore({
     usuario: usuarioSlice.reducer,
 
     permiso: permisoSlice.reducer,
-    perfil: usuarioSlice.reducer,
+    perfil: perfilSlice.reducer,
 
 
   },

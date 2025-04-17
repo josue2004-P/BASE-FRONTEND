@@ -1,16 +1,16 @@
-import { useUsuarioStore } from "../hooks/useUsuarioStore";
+import { usePerfilStore } from "../hooks/usePerfilStore";
 import { useEffect } from "react";
-import { Header, Usuarios } from "../components";
+import { Header, Perfiles } from "../components";
 
 export default function PerfilesPage() {
-  const { usuarios, isLoadingUsuarios, startUsuarios } = useUsuarioStore();
+  const { perfiles, isLoadingPerfiles, startPerfiles } = usePerfilStore();
 
-  if (isLoadingUsuarios) {
+  if (isLoadingPerfiles) {
     <h2 className="text-2xl font-semibold">CARGANDO</h2>;
   }
 
   useEffect(() => {
-    startUsuarios();
+    startPerfiles();
   }, []);
 
   return (
@@ -51,6 +51,9 @@ export default function PerfilesPage() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3">
+                  Id
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Nombre Completo
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -60,16 +63,13 @@ export default function PerfilesPage() {
                   Fecha Creación
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Estatus
-                </th>
-                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {usuarios.map((item, index) => (
-                <Usuarios key={index} items={item} />
+              {perfiles.map((item, index) => (
+                <Perfiles key={index} items={item} />
               ))}
             </tbody>
           </table>
