@@ -1,23 +1,27 @@
-import PropTypes from "prop-types";
+import { Outlet, useLocation } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
 import useDocumentTitle from "../libs/useDocumentTitle";
+import Sidebar from "../components/Sidebar";
 
-export default function Layout({ children, title }) {
+export default function Layout() {
+  const location = useLocation();
 
-  useDocumentTitle(` Base | ${title}`);
+  // Definir títulos por ruta
+  const routeTitles = {
+    "/usuarios": "Usuarios",
+  };
+
+  // Buscar título basado en la ruta actual
+  const currentTitle = routeTitles[location.pathname] || "Panel Admin";
+
+  useDocumentTitle(`Base | ${currentTitle}`);
 
   return (
     <>
-      <Navbar/>
-      <main className="mt-6 max-w-4xl mx-auto">
-        {children}
+      <Sidebar />
+      <main className="p-4 sm:ml-64">
+        <Outlet />
       </main>
     </>
   );
 }
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired, // Acepta cualquier elemento renderizable en React
-  title: PropTypes.string.isRequired,  // Debe ser una cadena de texto obligatoria
-};

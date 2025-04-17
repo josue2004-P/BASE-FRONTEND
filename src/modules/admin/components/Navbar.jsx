@@ -2,8 +2,6 @@ import { FiAlignLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../auth/hooks/useAuthStore";
 
-
-
 export default function Navbar() {
 
     const { startLogout } = useAuthStore();

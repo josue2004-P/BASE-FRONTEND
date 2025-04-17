@@ -12,7 +12,7 @@ export const useUsuarioStore = () => {
     try {
 
       const data = await usuarioService.obtenerUsuarios();
-      dispatch(onLoadUsuarios(data.data));
+      dispatch(onLoadUsuarios(data));
 
     } catch (error) {
       dispatch(onLogoutUsuario(error));

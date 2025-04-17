@@ -6,7 +6,7 @@ import {
 
 import {
   usuarioSlice
-} from "../modules/admin/store"
+} from "../modules/usuarios/store"
 
 import {
   authSlice,

@@ -4,8 +4,9 @@ import  {useAuthStore}  from "./modules/auth/hooks/useAuthStore";
 
 import {  PublicPage } from "./modules/public";
 import {LoginPage} from "./modules/auth";
-import {HomeAdminPage} from "./modules/admin"
 import {HomeClientePage} from "./modules/cliente"
+
+import AdminRoutes from "./modules/admin/routes/AdminRoutes";
 
 
 export default function App() {
@@ -31,20 +32,18 @@ if (status === 'checking') {
 
         </>
       ) : status === "authenticated" && user.perfil == "ADMINISTRADOR"  ? (
-        // SUPER ADMIN
-        <>
-          <Route path="/" element={<HomeAdminPage />} />
-          <Route path="/*" element={<Navigate to="/" />} />
-        </>
+        // ADMINISTRADOR
+        <Route path="/*" element={<AdminRoutes />} />
+
       ) : status === "authenticated" && user.perfil == "CLIENTE"  ? (
-        // SUPER ADMIN
+        // CLIENTE
         <>
           <Route path="/" element={<HomeClientePage />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </>
       )
       : (
-        <></>
+        null
       )}
     </Routes>
   );
