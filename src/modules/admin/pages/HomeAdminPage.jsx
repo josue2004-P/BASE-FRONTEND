@@ -1,4 +1,4 @@
-import { Header } from "../../usuarios/components";
+import { Header } from "../../permisos copy 2/components";
 
 export default function HomeAdminPage() {
 

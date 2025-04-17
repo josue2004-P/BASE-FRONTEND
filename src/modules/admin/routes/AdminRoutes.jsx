@@ -2,7 +2,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import Layout       from '../layouts/Layout';       // opcional: tu layout con sidebar/header
 import HomeAdminPage     from '../pages/HomeAdminPage';
-import UsuariosRoutes from '../../usuarios/routes/UsuariosRoutes';
+import UsuariosRoutes from '../../permisos copy 2/routes/UsuariosRoutes';
 
 export default function AdminRoutes() {
   // Todas las rutas aquí son relativas al punto donde montes <AdminRoutes/>
