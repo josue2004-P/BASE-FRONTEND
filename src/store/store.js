@@ -12,11 +12,19 @@ import {
   authSlice,
 } from "../modules/auth/store";
 
+import {
+  permisoSlice,
+} from "../modules/permisos/store";
+
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     ui: uiSlice.reducer,
     usuario: usuarioSlice.reducer,
+
+    permiso: permisoSlice.reducer,
+    perfil: usuarioSlice.reducer,
+
 
   },
   middleware: (getDefaultMiddleware) =>

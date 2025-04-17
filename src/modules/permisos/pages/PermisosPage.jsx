@@ -1,16 +1,16 @@
-import { useUsuarioStore } from "../hooks/useUsuarioStore";
+import { usePermisoStore } from "../hooks/usePermisoStore";
 import { useEffect } from "react";
-import { Header, Usuarios } from "../components";
+import { Header, Permisos } from "../components";
 
 export default function PermisosPage() {
-  const { usuarios, isLoadingUsuarios, startUsuarios } = useUsuarioStore();
+  const { permisos, isLoadingPermisos, startPermisos } = usePermisoStore();
 
-  if (isLoadingUsuarios) {
+  if (isLoadingPermisos) {
     <h2 className="text-2xl font-semibold">CARGANDO</h2>;
   }
 
   useEffect(() => {
-    startUsuarios();
+    startPermisos();
   }, []);
 
   return (
@@ -43,7 +43,7 @@ export default function PermisosPage() {
                 type="text"
                 id="table-search-users"
                 className="block py-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Search for users"
+                placeholder="Buscar por permisos"
               />
             </div>
           </div>
@@ -51,16 +51,16 @@ export default function PermisosPage() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Nombre Completo
+                  Id
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Usuario
+                  Nombre 
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Descripción
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Fecha Creación
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Estatus
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Action
@@ -68,8 +68,8 @@ export default function PermisosPage() {
               </tr>
             </thead>
             <tbody>
-              {usuarios.map((item, index) => (
-                <Usuarios key={index} items={item} />
+              {permisos.map((item, index) => (
+                <Permisos key={index} items={item} />
               ))}
             </tbody>
           </table>
