@@ -20,9 +20,14 @@ export const perfilSlice = createSlice({
             state.perfil = payload;
 
         },
-        onLogoutPerfil: ( state ) => {
+        onLogoutPerfil: ( state ,{payload} ) => {
+            if(payload){
+                state.isLoadingPerfiles = true,
+                state.perfil      = []
+            }
             state.isLoadingPerfiles = true,
             state.perfiles      = []
+            state.perfil      = []
         }
     }
 });
@@ -32,4 +37,5 @@ export const {
     onLoadPerfiles,
     onLoadPerfil,
     onLogoutPerfil,
+    onLogoutPerfiles,
 } = perfilSlice.actions;

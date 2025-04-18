@@ -56,10 +56,10 @@ export default function PerfilesPage() {
                   Id
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Nombre Completo
+                  Nombre Perfil
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Usuario
+                  Descripcion
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Fecha Creación

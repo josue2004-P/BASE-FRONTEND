@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import {formatearFechaHora} from "../helpers/formatearFechaHora"
 import { Link } from "react-router-dom";
+import {usePerfilStore} from "../hooks/usePerfilStore"
 
 export default function Usuarios({ items }) {
 
     const { fechaFormateada } = formatearFechaHora(items.fechaCreacion);
-
+    const {startEliminarPerfil} = usePerfilStore()
   return (
     <tr className="bg-white border-b  border-gray-200 hover:bg-gray-50 ">
       <td className="px-6  py-4 text-gray-900 whitespace-nowrap ">{items.id}</td>
@@ -20,6 +21,13 @@ export default function Usuarios({ items }) {
         >
           Editar Perfil
         </Link>
+        <button
+        onClick={()=>startEliminarPerfil(items)}
+          type="button"
+          className="font-medium text-red-600  hover:underline"
+        >
+          Eliminar Perfil
+        </button>
       </td>
     </tr>
   );

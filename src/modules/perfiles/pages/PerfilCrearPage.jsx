@@ -33,7 +33,7 @@ export default function PerfilCrearPage() {
     <section className="">
       <Header title="Crear Perfil" />
 
-      <section className="max-w-2xl border border-gray-200 bg-gray-50 rounded-lg mt-4">
+      <section className="max-w-lg border border-gray-200 bg-gray-50 rounded-lg mt-4">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Crear Perfil

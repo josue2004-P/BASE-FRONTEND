@@ -3,6 +3,7 @@ import { authService } from '../services/AuthService';
 import Swal from "sweetalert2";
 
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/authSlice";
+import { onLogoutPerfil } from "../../perfiles/store";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
@@ -65,6 +66,7 @@ export const useAuthStore = () => {
       if (result.isConfirmed) {
         localStorage.clear();
         dispatch(onLogout());
+        dispatch(onLogoutPerfil());
       }
     });
   };
