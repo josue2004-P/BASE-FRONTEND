@@ -18,10 +18,10 @@ export const usePerfilStore = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startPerfiles = async (filtros) => {
+  const startPerfiles = async({ nombre = "", page = 1, limit = 10 }) => {
     try {
-      const data = await perfilService.obtenerPerfiles(filtros);
-      dispatch(onLoadPerfiles(data));
+      const {perfiles} = await perfilService.obtenerPerfiles({nombre,page,limit});
+      dispatch(onLoadPerfiles(perfiles));
       dispatch(onClearError());
     } catch (error) {
         dispatch(onSetError(error));

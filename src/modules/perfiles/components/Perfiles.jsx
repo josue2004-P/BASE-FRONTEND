@@ -13,7 +13,7 @@ export default function Usuarios({ items }) {
       <td className="px-6 py-4">{items.nombre}</td>
       <td className="px-6 py-4">{items.descripcion}</td>
       <td className="px-6 py-4">{fechaFormateada}</td>
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 sm:flex gap-2">
         <Link
           to={`editar/${items.id}`}
           type="button"
