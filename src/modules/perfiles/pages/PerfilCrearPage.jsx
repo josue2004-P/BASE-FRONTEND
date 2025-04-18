@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Header } from "../components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { usePerfilStore } from "../hooks/usePerfilStore";
 
 // Esquema de validación
 const validationSchema = Yup.object({
@@ -14,6 +15,9 @@ const validationSchema = Yup.object({
 });
 
 export default function PerfilCrearPage() {
+
+  const {startCrearPerfiles} = usePerfilStore();
+
   const formik = useFormik({
     initialValues: {
       nombre: "",
@@ -21,7 +25,7 @@ export default function PerfilCrearPage() {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Datos del perfil:", values);
+      startCrearPerfiles(values)
     },
   });
 
