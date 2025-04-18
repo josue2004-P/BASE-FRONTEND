@@ -3,9 +3,9 @@ import { adaptarPerfiles,adaptarCrearActualizarPerfiles,adaptarPerfil } from '..
 
 export const perfilService = {
 
-  obtenerPerfiles: async () => {
+  obtenerPerfiles: async (filtros) => {
     try {
-      const { data } = await clienteAxios.get('/perfiles');
+      const { data } = await clienteAxios.get(`/perfiles?sNombre=${filtros.nombre}`);
       const perfiles = adaptarPerfiles(data.data);
       return perfiles;
     } catch (error) {

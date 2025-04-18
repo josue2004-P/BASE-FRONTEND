@@ -7,24 +7,24 @@ import {
   onLoadPerfiles,
   onLoadPerfil,
   onLogoutPerfil,
+  onClearError,
+  onSetError
 } from "../store/perfilSlice";
 
 export const usePerfilStore = () => {
-  const { perfiles, perfil, isLoadingPerfiles } = useSelector(
+  const { error,perfiles, perfil, isLoadingPerfiles } = useSelector(
     (state) => state.perfil
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startPerfiles = async () => {
+  const startPerfiles = async (filtros) => {
     try {
-      const data = await perfilService.obtenerPerfiles();
+      const data = await perfilService.obtenerPerfiles(filtros);
       dispatch(onLoadPerfiles(data));
+      dispatch(onClearError());
     } catch (error) {
-      Swal.fire({
-        title: error,
-        icon: "error",
-      });
+        dispatch(onSetError(error));
     }
   };
 
@@ -93,7 +93,7 @@ export const usePerfilStore = () => {
           title: data.message || "Perfil eliminado correctamente.",
           icon: "success",
         });
-        startPerfiles()
+        startPerfiles({nombre:""})
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",
@@ -110,6 +110,7 @@ export const usePerfilStore = () => {
 
   return {
     //* Propiedades
+    error,
     perfiles,
     perfil,
     isLoadingPerfiles,

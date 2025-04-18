@@ -5,10 +5,10 @@ export default function Header({ title }) {
   return (
     <header>
       <nav
-        className="justify-between w-fit px-4 py-3 text-gray-700 border border-gray-200 rounded-lg sm:flex sm:px-5 bg-gray-50 "
+        className="justify-between w-fit px-2 py-1.5 text-gray-700 border border-gray-200 rounded-lg sm:flex sm:px-5 sm:py-3 bg-gray-50 "
         aria-label="Breadcrumb"
       >
-        <ol className="inline-flex items-center mb-3 space-x-1 md:space-x-2 rtl:space-x-reverse sm:mb-0">
+        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse sm:mb-0">
           <li>
             <div className="flex items-center">
               <Link
