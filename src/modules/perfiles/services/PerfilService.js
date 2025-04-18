@@ -11,14 +11,8 @@ export const perfilService = {
       const { data } = await clienteAxios.get(`/perfiles?sNombre=${nombre}&page=${page}&limit=${limit}`);
       const perfiles = adaptarPerfiles(data.data.perfiles);
       
-      const filtros = {
-        page :data.data.page,
-        totalPages :data.data.totalPages,
-        total: data.data.total
-      }
       return {
         perfiles,
-        filtros
       };
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener los perfiles";

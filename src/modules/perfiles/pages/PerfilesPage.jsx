@@ -9,7 +9,7 @@ export default function PerfilesPage() {
 
   const [nombreFiltro, setNombreFiltro] = useState("");
   const [page, setPage] = useState(1);
-  const limit = 5;
+  const limit = 10;
 
   useEffect(() => {
     startPerfiles({ nombre: "", page, limit }); // carga inicial
@@ -68,7 +68,7 @@ export default function PerfilesPage() {
           </Link>
         </div>
 
-        <div className="w-full relative h-[30rem] overflow-auto mt-5">
+        <div className="w-full relative h-[35rem] overflow-auto mt-5">
           <table className="w-full sm:rounded-lg text-sm text-left rtl:text-right text-gray-500">
             <thead className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
@@ -117,7 +117,9 @@ export default function PerfilesPage() {
               )}
             </tbody>
           </table>
-          <div className="flex justify-between items-center mt-4 px-4">
+        </div>
+
+        <div className=" flex justify-between items-center mt-4 px-4">
             <button
               disabled={page === 1}
               onClick={() => setPage((prev) => prev - 1)}
@@ -136,7 +138,6 @@ export default function PerfilesPage() {
               Siguiente
             </button>
           </div>
-        </div>
       </section>
     </>
   );

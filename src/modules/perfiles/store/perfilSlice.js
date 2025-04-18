@@ -19,9 +19,9 @@ export const perfilSlice = createSlice({
     },
     onLogoutPerfil: (state, { payload }) => {
       if (payload) {
-        (state.isLoadingPerfiles = true), (state.perfil = []);
+        (state.isLoadingPerfiles = false), (state.perfil = []);
       }
-      (state.isLoadingPerfiles = true), (state.perfiles = []);
+      (state.isLoadingPerfiles = false), (state.perfiles = []);
       state.perfil = [];
     },
     onSetError: (state, { payload }) => {
