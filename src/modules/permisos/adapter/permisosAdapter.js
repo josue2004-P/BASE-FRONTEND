@@ -1,10 +1,28 @@
+// ADAPTADOR DE TODOS LOS PERMISOS
 export function adaptarPermisos(permisosRaw) {
-    return permisosRaw.map(permiso => ({
-      id: permiso.nId03Permiso,
-      nombre: permiso.sNombre,
-      descripcion: permiso.sDescripcion,
-      fechaCreacion: permiso.dFechaCreacion,
-    }));
-  }
+  return permisosRaw.map((permiso) => ({
+    id: permiso.nId03Permiso,
+    nombre: permiso.sNombre,
+    descripcion: permiso.sDescripcion,
+    fechaCreacion: permiso.dFechaCreacion,
+  }));
+}
 
-1
+// ADAPTADOR PARA CREAR Y ACTUALIZAR PERMISOS
+export function adaptarCrearActualizarPerfiles(permisosRaw) {
+  return {
+    sNombre: permisosRaw.nombre,
+    sDescripcion: permisosRaw.descripcion,
+  };
+}
+
+// ADAPTADOR PARA UN SOLO PERMISO
+export function adaptarPerfil(permisosRaw) {
+  return {
+    id: permisosRaw.nId03Permiso,
+    nombre: permisosRaw.sNombre,
+    descripcion: permisosRaw.sDescripcion,
+    fechaCreacion: permisosRaw.dFechaCreacion,
+    fechaActualizacion: permisosRaw.dFechaActualizacion,
+  };
+}
