@@ -9,7 +9,7 @@ export function adaptarPermisos(permisosRaw) {
 }
 
 // ADAPTADOR PARA CREAR Y ACTUALIZAR PERMISOS
-export function adaptarCrearActualizarPerfiles(permisosRaw) {
+export function adaptarCrearActualizarPermisos(permisosRaw) {
   return {
     sNombre: permisosRaw.nombre,
     sDescripcion: permisosRaw.descripcion,
@@ -17,7 +17,7 @@ export function adaptarCrearActualizarPerfiles(permisosRaw) {
 }
 
 // ADAPTADOR PARA UN SOLO PERMISO
-export function adaptarPerfil(permisosRaw) {
+export function adaptarPermiso(permisosRaw) {
   return {
     id: permisosRaw.nId03Permiso,
     nombre: permisosRaw.sNombre,
