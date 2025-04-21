@@ -3,7 +3,7 @@ import {formatearFechaHora} from "../helpers/formatearFechaHora"
 import { Link } from "react-router-dom";
 import {usePerfilStore} from "../hooks/usePerfilStore"
 
-export default function Usuarios({ items }) {
+export default function Perfiles({ items }) {
 
     const { fechaFormateada } = formatearFechaHora(items.fechaCreacion);
     const {startEliminarPerfil} = usePerfilStore()
@@ -33,6 +33,6 @@ export default function Usuarios({ items }) {
   );
 }
 
-Usuarios.propTypes = {
+Perfiles.propTypes = {
   items: PropTypes.object,
 };

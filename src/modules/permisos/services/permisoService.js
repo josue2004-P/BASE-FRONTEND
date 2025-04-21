@@ -10,7 +10,8 @@ export const permisoService = {
   obtenerPermisos: async ({nombre,page,limit}) => {
     try {
       const { data } = await clienteAxios.get(`/permisos?sNombre=${nombre}&page=${page}&limit=${limit}`);
-      const permisos = adaptarPermisos(data.data.perfiles);
+
+      const permisos = adaptarPermisos(data.data.permisos);
       
       return {
         permisos,

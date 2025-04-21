@@ -29,7 +29,7 @@ export const usePermisoStore = () => {
 
   const startPermiso = async (id) => {
     try {
-      const data = await permiso.obtenerPermiso(id);
+      const data = await permisoService.obtenerPermiso(id);
       dispatch(onLoadPermiso(data));
     } catch (error) {
       Swal.fire({
