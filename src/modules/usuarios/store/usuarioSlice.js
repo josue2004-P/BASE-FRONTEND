@@ -1,35 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const usuarioSlice = createSlice({
-    name: 'usuario',
-    initialState: {
-        isLoadingUsuarios: true,
-        usuarios: [],
-        usuario: [
-        ],
-        activeUsuario: null
+  name: "usuario",
+  initialState: {
+    isLoadingUsuarios: true,
+    usuarios: [],
+    usuario: [],
+    error: null,
+  },
+  reducers: {
+    onLoadUsuarios: (state, { payload = [] }) => {
+      state.isLoadingUsuarios = false;
+      state.usuarios = payload;
     },
-    reducers: {
-        onLoadUsuarios: (state, { payload = [] }) => {
-            state.isLoadingUsuarios = false;
-            state.usuarios = payload;
-
-        },
-        onLoadUsuario: (state, { payload = [] }) => {
-            state.isLoadingUsuarios = false;
-            state.usuario = payload;
-
-        },
-        onLogoutUsuario: ( state ) => {
-            state.isLoadingUsuarios = true,
-            state.usuarios      = []
-        }
-    }
+    onLoadUsuario: (state, { payload = [] }) => {
+      state.isLoadingUsuarios = false;
+      state.usuario = payload;
+    },
+    onLogoutUsuario: (state, { payload }) => {
+      if (payload) {
+        (state.isLoadingPerfiles = false), (state.perfil = []);
+      }
+      (state.isLoadingPerfiles = false), (state.perfiles = []);
+      state.perfil = [];
+    },
+    onSetError: (state, { payload }) => {
+      state.error = payload;
+      state.isLoadingPerfiles = false;
+    },
+    onClearError: (state) => {
+      state.error = null;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const {
-    onLoadUsuarios,
-    onLoadUsuario,
-    onLogoutUsuario,
-} = usuarioSlice.actions;
+export const { 
+    onLoadUsuarios, 
+    onLoadUsuario, 
+    onLogoutUsuario ,
+    onSetError,
+    onClearError
+} =
+  usuarioSlice.actions;

@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import {formatearFechaHora} from "../helpers/formatearFechaHora"
+import { Link } from "react-router-dom";
+import { useUsuarioStore } from "../hooks/useUsuarioStore";
 
 export default function Usuarios({ items }) {
-
     const { fechaFormateada } = formatearFechaHora(items.fechaCreacion);
+      const { startEliminarUsuario } = useUsuarioStore();
+    
 
   return (
     <tr className="bg-white border-b  border-gray-200 hover:bg-gray-50 ">
@@ -35,14 +38,20 @@ export default function Usuarios({ items }) {
           )}
         </div>
       </td>
-      <td className="px-6 py-4">
-        <a
-          href="#"
-          type="button"
-          className="font-medium text-blue-600  hover:underline"
+      <td className="px-6 py-4 sm:flex gap-2">
+        <Link
+          to={`editar/${items.id}`}
+          className="font-medium text-blue-600 hover:underline"
         >
-          Edit user
-        </a>
+          Editar Usuario
+        </Link>
+        <button
+          onClick={() => startEliminarUsuario(items)}
+          type="button"
+          className="font-medium text-red-600 hover:underline"
+        >
+          Eliminar Usuario
+        </button>
       </td>
     </tr>
   );
