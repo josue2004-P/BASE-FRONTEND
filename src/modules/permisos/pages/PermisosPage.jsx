@@ -5,7 +5,8 @@ import { IoIosClose, IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 export default function PermisosPage() {
-  const { error, permisos, isLoadingPermisos, startPermisos } = usePermisoStore();
+  const { error, permisos, isLoadingPermisos, startPermisos } =
+    usePermisoStore();
 
   const [nombreFiltro, setNombreFiltro] = useState("");
   const [page, setPage] = useState(1);
@@ -40,7 +41,7 @@ export default function PermisosPage() {
               className=" py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
               placeholder="Buscar permisos"
               value={nombreFiltro}
-              onChange={(e) => setNombreFiltro(e.target.value)} 
+              onChange={(e) => setNombreFiltro(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearch();
               }}
@@ -70,6 +71,7 @@ export default function PermisosPage() {
         </div>
 
         <div className="w-full relative h-[35rem] overflow-auto mt-5">
+          {/* La tabla sigue dentro del div como contenedor visual, pero sin alterar la jerarquía */}
           <table className="w-full sm:rounded-lg text-sm text-left rtl:text-right text-gray-500">
             <thead className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
@@ -86,29 +88,18 @@ export default function PermisosPage() {
                   Fecha Creación
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Action
+                  Acciones
                 </th>
               </tr>
             </thead>
             <tbody>
-              {error && (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="text-center text-red-600 bg-red-100 p-2 rounded"
-                  >
-                    El permiso que ingresaste no está registrado en el sistema
-                  </td>
-                </tr>
-              )}
-
-              {permisos.length === 0 && !error ? (
+              {permisos.length === 0 ? (
                 <tr>
                   <td
                     colSpan={5}
                     className="text-center text-orange-600 bg-red-100 p-2 rounded"
                   >
-                    {error}
+                    No hay permisos disponibles
                   </td>
                 </tr>
               ) : (
@@ -121,24 +112,24 @@ export default function PermisosPage() {
         </div>
 
         <div className=" flex justify-between items-center mt-4 px-4">
-            <button
-              disabled={page === 1}
-              onClick={() => setPage((prev) => prev - 1)}
-              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Anterior
-            </button>
+          <button
+            disabled={page === 1}
+            onClick={() => setPage((prev) => prev - 1)}
+            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Anterior
+          </button>
 
-            <span className="text-sm">Página {page}</span>
+          <span className="text-sm">Página {page}</span>
 
-            <button
-              disabled={permisos.length < limit}
-              onClick={() => setPage((prev) => prev + 1)}
-              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Siguiente
-            </button>
-          </div>
+          <button
+            disabled={permisos.length < limit}
+            onClick={() => setPage((prev) => prev + 1)}
+            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Siguiente
+          </button>
+        </div>
       </section>
     </>
   );
