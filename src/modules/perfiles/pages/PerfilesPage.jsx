@@ -37,7 +37,7 @@ export default function PerfilesPage() {
               type="text"
               id="table-search-users"
               className=" py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-              placeholder="Buscar usuarios"
+              placeholder="Buscar perfiles"
               value={nombreFiltro}
               onChange={(e) => setNombreFiltro(e.target.value)} 
               onKeyDown={(e) => {

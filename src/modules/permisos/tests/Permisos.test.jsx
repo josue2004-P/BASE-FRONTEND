@@ -1,45 +1,96 @@
-// src/modules/permisos/tests/Permisos.test.jsx
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { HashRouter } from "react-router-dom";
+// Mock del helper de fecha
+vi.mock("../helpers/formatearFechaHora", () => ({
+  formatearFechaHora: vi.fn(() => ({
+    fechaFormateada: "20/04/2025",
+  })),
+}));
+
+import { render, screen, fireEvent } from "@testing-library/react";
 import Permisos from "../components/Permisos";
-import { Provider } from "react-redux";
-import { store } from "../../../store";
+import { usePermisoStore } from "../hooks/usePermisoStore";
+import { MemoryRouter } from "react-router-dom";
+import { vi, describe, it, expect, beforeEach } from "vitest";
+import { formatearFechaHora } from "../helpers/formatearFechaHora"; 
 
-// Mock de store y helper
-vi.mock("../../../hooks/usePermisoStore", () => ({
-  usePermisoStore: () => ({
-    startEliminarPermiso: vi.fn(),
-  }),
+// Mock del store
+vi.mock("../hooks/usePermisoStore", () => ({
+  usePermisoStore: vi.fn(),
 }));
 
-vi.mock("../../../helpers/formatearFechaHora", () => ({
-  formatearFechaHora: () => ({
-    fechaFormateada: "21/04/2025 10:00 AM",
-  }),
-}));
+describe("Permisos component", () => {
+  const mockEliminar = vi.fn();
 
-describe("Permisos Component", () => {
-  const fakeItem = {
+  const item = {
     id: 1,
-    nombre: "Permiso Test",
-    descripcion: "Descripción de prueba",
-    fechaCreacion: "2025-04-21T10:00:00Z",
+    nombre: "Admin",
+    descripcion: "Acceso completo",
+    fechaCreacion: "2025-04-20T10:30:00",
   };
 
-  it("renderiza los datos correctamente", () => {
+  beforeEach(() => {
+    usePermisoStore.mockReturnValue({
+      startEliminarPermiso: mockEliminar,
+    });
+  });
+
+  it("debe llamar a formatearFechaHora con la fecha de creación", () => {
     render(
-      <Provider store={store}>
-        <HashRouter>
-          <Permisos items={fakeItem} />
-        </HashRouter>
-      </Provider>
+      <table>
+        <tbody>
+          <Permisos items={item} />
+        </tbody>
+      </table>,
+      { wrapper: MemoryRouter }
     );
 
-    expect(screen.getByText("Permiso Test")).toBeInTheDocument();
-    expect(screen.getByText("Descripción de prueba")).toBeInTheDocument();
-    expect(screen.getByText("21 de abril de 2025, 04:00:00")).toBeInTheDocument();
+    // Verifica que la función formatearFechaHora haya sido llamada con la fecha
+    expect(vi.mocked(formatearFechaHora)).toHaveBeenCalledWith("2025-04-20T10:30:00");
+  });
+
+  it("debe renderizar los datos correctamente", () => {
+    render(
+      <table>
+        <tbody>
+          <Permisos items={item} />
+        </tbody>
+      </table>,
+      { wrapper: MemoryRouter }
+    );
+
+    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(screen.getByText("Admin")).toBeInTheDocument();
+    expect(screen.getByText("Acceso completo")).toBeInTheDocument();
+    expect(screen.getByText("20/04/2025")).toBeInTheDocument();
     expect(screen.getByText("Editar Permiso")).toBeInTheDocument();
     expect(screen.getByText("Eliminar Permiso")).toBeInTheDocument();
+  });
+
+  it("debe llamar a startEliminarPermiso al hacer clic en eliminar", () => {
+    render(
+      <table>
+        <tbody>
+          <Permisos items={item} />
+        </tbody>
+      </table>,
+      { wrapper: MemoryRouter }
+    );
+
+    fireEvent.click(screen.getByText("Eliminar Permiso"));
+
+    expect(mockEliminar).toHaveBeenCalledWith(item);
+  });
+
+  it("debe tener el enlace de edición correcto", () => {
+    render(
+      <table>
+        <tbody>
+          <Permisos items={item} />
+        </tbody>
+      </table>,
+      { wrapper: MemoryRouter }
+    );
+
+    const link = screen.getByText("Editar Permiso").closest("a");
+    expect(link).toHaveAttribute("href", "/editar/1");
   });
 });

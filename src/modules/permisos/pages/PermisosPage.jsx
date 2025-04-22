@@ -41,7 +41,7 @@ export default function PermisosPage() {
               className=" py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
               placeholder="Buscar permisos"
               value={nombreFiltro}
-              onChange={(e) => setNombreFiltro(e.target.value)}
+              onChange={(e) => setNombreFiltro(e.target.value)} 
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearch();
               }}
@@ -71,7 +71,6 @@ export default function PermisosPage() {
         </div>
 
         <div className="w-full relative h-[35rem] overflow-auto mt-5">
-          {/* La tabla sigue dentro del div como contenedor visual, pero sin alterar la jerarquía */}
           <table className="w-full sm:rounded-lg text-sm text-left rtl:text-right text-gray-500">
             <thead className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
@@ -79,7 +78,7 @@ export default function PermisosPage() {
                   Id
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Nombre Permiso
+                  Nombre Perfil
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Descripcion
@@ -88,18 +87,29 @@ export default function PermisosPage() {
                   Fecha Creación
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Acciones
+                  Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {permisos.length === 0 ? (
+              {error && (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="text-center text-red-600 bg-red-100 p-2 rounded"
+                  >
+                    El permiso que ingresaste no está registrado en el sistema
+                  </td>
+                </tr>
+              )}
+
+              {permisos.length === 0 && !error ? (
                 <tr>
                   <td
                     colSpan={5}
                     className="text-center text-orange-600 bg-red-100 p-2 rounded"
                   >
-                    No hay permisos disponibles
+                    {error}
                   </td>
                 </tr>
               ) : (

@@ -17,7 +17,6 @@ export default function Permisos({ items }) {
       <td className="px-6 py-4 sm:flex gap-2">
         <Link
           to={`editar/${items.id}`}
-          type="button"
           className="font-medium text-blue-600 hover:underline"
         >
           Editar Permiso
@@ -37,3 +36,4 @@ export default function Permisos({ items }) {
 Permisos.propTypes = {
   items: PropTypes.object.isRequired,
 };
+
