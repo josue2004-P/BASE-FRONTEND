@@ -2,45 +2,59 @@ import { Link } from "react-router-dom";
 import { Header } from "../components/index.js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { usePermisoStore } from "../hooks/usePermisoStore.js";
+import { useUsuarioStore } from "../hooks/useUsuarioStore.js";
 
 // Esquema de validación
 const validationSchema = Yup.object({
   nombre: Yup.string()
     .min(3, "El nombre debe tener al menos 3 caracteres")
     .required("El nombre es obligatorio"),
-  descripcion: Yup.string()
-    .min(10, "La descripción debe tener al menos 10 caracteres")
-    .required("La descripción es obligatoria"),
+  apellidoPaterno: Yup.string()
+    .min(3, "El Apellido Paterno debe tener al menos 3 caracteres")
+    .required("El Apellido Paterno es obligatorio"),
+  apellidoMaterno: Yup.string()
+    .min(3, "El Apellido Materno debe tener al menos 3 caracteres")
+    .required("El Apellido Materno es obligatorio"),
+  usuario: Yup.string()
+    .min(3, "El usuario debe tener al menos 3 caracteres")
+    .required("El usuario es obligatorio"),
+  email: Yup.string().required("El correo es obligatorio"),
+  password: Yup.string()
+    .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .required("La contraseña es obligatorio"),
 });
 
 export default function UsuarioCrearPage() {
-
-  const {startCrearPermisos} = usePermisoStore();
+  const { startCrearUsuario } = useUsuarioStore();
 
   const formik = useFormik({
     initialValues: {
       nombre: "",
-      descripcion: "",
+      apellidoPaterno: "",
+      apellidoMaterno: "",
+      usuario: "",
+      email: "",
+      password: "",
     },
     validationSchema,
     onSubmit: (values) => {
-      startCrearPermisos(values)
+      startCrearUsuario(values);
     },
   });
 
   return (
     <section className="">
-      <Header title="Crear Perfil" />
+      <Header title="Crear Usuario" />
 
       <section className="max-w-lg border border-gray-200 bg-gray-50 rounded-lg mt-4">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
-            Crear Permiso
+            Crear Usuario
           </h2>
 
           <form onSubmit={formik.handleSubmit}>
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              {/* NOMBRE */}
               <div className="sm:col-span-2">
                 <label
                   htmlFor="nombre"
@@ -56,32 +70,134 @@ export default function UsuarioCrearPage() {
                   onBlur={formik.handleBlur}
                   value={formik.values.nombre}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="Escribe el nombre del perfil"
+                  placeholder="Escribe el nombre del usuario"
                 />
                 {formik.touched.nombre && formik.errors.nombre && (
-                  <div className="text-red-600 text-sm mt-1">{formik.errors.nombre}</div>
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.nombre}
+                  </div>
+                )}
+              </div>
+              {/* APELLIDO PATERNO */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="apellidoPaterno"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Apellido Paterno
+                </label>
+                <input
+                  type="text"
+                  name="apellidoPaterno"
+                  id="apellidoPaterno"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.apellidoPaterno}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el apellido paterno"
+                />
+
+                {formik.touched.apellidoPaterno && formik.errors.apellidoPaterno && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.apellidoPaterno}
+                  </div>
+                )}
+              </div>
+              {/* APELIIDO MATERNO */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="apellidoMaterno"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Apellido Materno
+                </label>
+                <input
+                  type="text"
+                  name="apellidoMaterno"
+                  id="apellidoMaterno"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.apellidoMaterno}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el apellido materno"
+                />
+                {formik.touched.apellidoMaterno && formik.errors.apellidoMaterno && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.apellidoMaterno}
+                  </div>
+                )}
+              </div>
+              {/* USUARIO */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="usuario"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Usuario
+                </label>
+                <input
+                  type="text"
+                  name="usuario"
+                  id="usuario"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.usuario}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el usuario"
+                />
+                {formik.touched.usuario && formik.errors.usuario && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.usuario}
+                  </div>
+                )}
+              </div>
+              {/* EMAIL */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="nombre"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el email"
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.email}
+                  </div>
                 )}
               </div>
 
+              {/* CONTRASEÑA */}
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="descripcion"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Descripción
+                  Contraseña
                 </label>
-                <textarea
-                  id="descripcion"
-                  name="descripcion"
-                  rows="8"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="Escribe la descripción del perfil"
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.descripcion}
+                  value={formik.values.password}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe la contraseña"
                 />
-                {formik.touched.descripcion && formik.errors.descripcion && (
-                  <div className="text-red-600 text-sm mt-1">{formik.errors.descripcion}</div>
+                {formik.touched.password && formik.errors.password && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.password}
+                  </div>
                 )}
               </div>
             </div>
@@ -91,10 +207,10 @@ export default function UsuarioCrearPage() {
                 type="submit"
                 className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
               >
-                Agregar Permiso
+                Agregar Usuario
               </button>
               <Link
-                to={"/permisos"}
+                to={"/usuarios"}
                 className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-red-800"
               >
                 Cancelar
