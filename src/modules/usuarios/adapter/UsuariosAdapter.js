@@ -11,7 +11,7 @@ export function adaptarUsuarios(usuariosRaw) {
 
 export function adaptarUsuario(usuariosRaw) {
   return {
-    id: usuariosRaw.nId02Perfil,
+    id: usuariosRaw.nId01Usuario,
     nombre: usuariosRaw.sNombre,
     apellidoPaterno: usuariosRaw.sApellidoPaterno,
     apellidoMaterno: usuariosRaw.sApellidoMaterno,

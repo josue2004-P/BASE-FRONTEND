@@ -31,11 +31,11 @@ if (status === 'checking') {
           <Route path="/*" element={<Navigate to="/auth/login" />} />
 
         </>
-      ) : status === "authenticated" && user.perfil == "ADMINISTRADOR"  ? (
+      ) : status === "authenticated" && user.perfil.includes("ADMINISTRADOR") ? (
         // ADMINISTRADOR
         <Route path="/*" element={<AdminRoutes />} />
 
-      ) : status === "authenticated" && user.perfil == "CLIENTE"  ? (
+      ) : status === "authenticated" && user.perfil.includes("CLIENTE")  ? (
         // CLIENTE
         <>
           <Route path="/" element={<HomeClientePage />} />

@@ -31,18 +31,6 @@ const validationSchema = Yup.object({
 export default function UsuarioEditarPage() {
   const { id } = useParams();
 
-  const [seleccionados, setSeleccionados] = useState([]);
-
-  const manejarSeleccion = (id, isChecked) => {
-    setSeleccionados((prev) =>
-      isChecked ? [...prev, id] : prev.filter((itemId) => itemId !== id)
-    );
-  };
-
-  const handleObtenerSeleccionados = () => {
-    console.log("IDs seleccionados en el padre:", seleccionados);
-  };
-
   const {
     usuario,
     startUsuario,
@@ -50,17 +38,45 @@ export default function UsuarioEditarPage() {
     startActualizarUsuario,
     isLoadingUsuarios,
   } = useUsuarioStore();
-  const { perfiles, isLoadingPerfiles, startPerfiles } = usePerfilStore();
+
+  const {
+    perfiles,
+    perfilesUsuario,
+    isLoadingPerfiles,
+    startPerfilesUsuario,
+    startAsignarPerfilesUsuario,
+    startPerfiles,
+  } = usePerfilStore();
+
+  const [seleccionados, setSeleccionados] = useState([]);
+
+  const manejarSeleccion = (idPerfil, valor) => {
+    setSeleccionados((prev) =>
+      valor ? [...prev, idPerfil] : prev.filter((id) => id !== idPerfil)
+    );
+  };
+
+  const handleObtenerSeleccionados = () => {
+    const data = {
+      idUsuario: usuario.id,
+      idPerfiles: seleccionados,
+    };
+    startAsignarPerfilesUsuario(data);
+  };
 
   useEffect(() => {
-    startPerfiles({ nombre: "", page: 1, limit: 100 }); // carga inicial
-
-    startUsuario(id);
+    if (id) {
+      startUsuario(id);
+      startPerfilesUsuario(id);
+      startPerfiles({ nombre: "", page: 1, limit: 100 });
+    }
   }, [id]);
 
-  if (isLoadingPerfiles) {
-    <h2 className="text-2xl font-semibold">CARGANDO</h2>;
-  }
+  useEffect(() => {
+      const ids = perfilesUsuario.map((p) => p.idPerfil);
+      setSeleccionados(ids);
+    
+  }, [perfilesUsuario]);
 
   const formik = useFormik({
     initialValues: {
@@ -79,7 +95,7 @@ export default function UsuarioEditarPage() {
     },
   });
 
-  if (isLoadingUsuarios || !usuario?.nombre) {
+  if (isLoadingPerfiles || isLoadingUsuarios || !usuario?.nombre) {
     return <h2 className="text-2xl font-semibold">CARGANDO...</h2>;
   }
 
@@ -263,24 +279,25 @@ export default function UsuarioEditarPage() {
             </form>
           </div>
         </section>
-        <div className="py-8 px-4 lg:py-8 border border-gray-200 bg-gray-50 rounded-lg mt-4">
+        <div className="py-2 px-4 lg:py-8 border border-gray-200 bg-gray-50 rounded-lg mt-4 h-fit">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
-            Editar Permiso
+            Asignar Perfil
           </h2>
           <div className="flex flex-col gap-3">
             {perfiles.map((items, key) => (
               <ListadoPerfiles
                 items={items}
                 key={key}
+                checked={seleccionados.includes(items.id)}
                 onSeleccionChange={manejarSeleccion}
               />
             ))}
           </div>
           <button
             onClick={handleObtenerSeleccionados}
-            className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
           >
-            Obtener IDs Seleccionados
+            Asignar Perfiles
           </button>
         </div>
       </div>

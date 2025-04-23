@@ -8,11 +8,12 @@ import {
   onLoadPerfil,
   onLogoutPerfil,
   onClearError,
-  onSetError
+  onSetError,
+  onLoadPerfilesUsuario
 } from "../store/perfilSlice";
 
 export const usePerfilStore = () => {
-  const { error,perfiles, perfil, isLoadingPerfiles } = useSelector(
+  const {perfilesUsuario, error,perfiles, perfil, isLoadingPerfiles } = useSelector(
     (state) => state.perfil
   );
   const dispatch = useDispatch();
@@ -32,6 +33,19 @@ export const usePerfilStore = () => {
     try {
       const data = await perfilService.obtenerPerfil(id);
       dispatch(onLoadPerfil(data));
+    } catch (error) {
+      Swal.fire({
+        title: error,
+        icon: "error",
+      });
+      navigate("perfiles");
+    }
+  };
+
+  const startPerfilesUsuario = async (id) => {
+    try {
+      const data = await perfilService.obtenerPerfilesUsuario(id);
+      dispatch(onLoadPerfilesUsuario(data));
     } catch (error) {
       Swal.fire({
         title: error,
@@ -104,12 +118,29 @@ export const usePerfilStore = () => {
     }
   };
 
+  const startAsignarPerfilesUsuario = async (datos) => {
+    try {
+
+      const data = await perfilService.asignarPerfilesUsuario(datos);
+      Swal.fire({
+        title: data.message,
+        icon: "success",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: error,
+        icon: "error",
+      });
+    }
+  };
+
   const startOnLogoutPerfil = (id) => {
     dispatch(onLogoutPerfil(id));
   };
 
   return {
     //* Propiedades
+    perfilesUsuario,
     error,
     perfiles,
     perfil,
@@ -121,5 +152,7 @@ export const usePerfilStore = () => {
     startActualizarPerfil,
     startEliminarPerfil,
     startOnLogoutPerfil,
+    startAsignarPerfilesUsuario,
+    startPerfilesUsuario
   };
 };

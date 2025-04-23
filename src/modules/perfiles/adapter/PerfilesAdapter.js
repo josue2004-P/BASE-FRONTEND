@@ -24,3 +24,22 @@ export function adaptarPerfil(perfilRaw) {
     fechaActualizacion: perfilRaw.dFechaActualizacion,
   };
 }
+
+export function adaptarPerfilesUsuario(perfilesRaw) {
+  if (!Array.isArray(perfilesRaw)) return []; // Si no es array, regreso vacío
+
+  return perfilesRaw.map((perfil) => ({
+    idPerfilUsuario: perfil.nId04PerfilUsuario,
+    idUsuario: perfil.nId01Usuario,
+    idPerfil: perfil.nId02Perfil,
+    perfilNombre: perfil.perfil.sNombre
+  }));
+}
+
+export function adaptarAsignarPerfilesUsuario(perfilUsuariosRaw) {
+  return {
+    nId01Usuario: perfilUsuariosRaw.idUsuario,
+    nId02Perfiles: perfilUsuariosRaw.idPerfiles,
+  };
+}
+
