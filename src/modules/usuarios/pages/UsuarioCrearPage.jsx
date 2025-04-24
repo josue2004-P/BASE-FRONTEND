@@ -44,7 +44,7 @@ export default function UsuarioCrearPage() {
 
   return (
     <section className="">
-      <Header title="Crear Usuario" />
+      <Header title="Crear Usuario" ruta={"Crear Perfil"}/>
 
       <section className="max-w-lg border border-gray-200 bg-gray-50 rounded-lg mt-4">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">

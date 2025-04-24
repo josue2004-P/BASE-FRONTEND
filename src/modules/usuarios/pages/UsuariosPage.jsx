@@ -28,7 +28,7 @@ export default function HomeAdminPage() {
   return (
     <>
       <section className="overflow-hidden">
-        <Header title="" />
+        <Header title="Listado de Usuarios" />
 
         <div className=" flex items-center  sm:justify-end flex-column md:flex-row flex-wrap space-y-1 sm:space-y-4 md:space-y-0 py-4 ">
           <div className="relative w-full lg:w-fit  ">

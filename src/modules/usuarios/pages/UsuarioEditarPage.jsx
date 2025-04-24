@@ -101,8 +101,8 @@ export default function UsuarioEditarPage() {
 
   return (
     <section className="">
-      <Header title="Editar Perfil" />
-      <div className="grid grid-cols-3 gap-2">
+      <Header title="Editar Perfil" ruta="Editar Perfil" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
         <section className=" border border-gray-200 bg-gray-50 rounded-lg mt-4">
           <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
             <h2 className="mb-4 text-xl font-bold text-gray-900 ">

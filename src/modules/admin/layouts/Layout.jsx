@@ -1,7 +1,7 @@
-import { Outlet, useLocation,matchPath } from "react-router-dom";
+import { Outlet, useLocation, matchPath } from "react-router-dom";
 
 import useDocumentTitle from "../libs/useDocumentTitle";
-import Sidebar from "../components/Sidebar";
+import { Sidebar, SidebarNavbar,Footer } from "../components";
 
 export default function Layout() {
   const routeTitles = {
@@ -11,11 +11,11 @@ export default function Layout() {
     "/perfiles/crear": "Crear Perfil",
     "/perfiles/editar/:id": "Editar Perfil",
   };
-  
+
   const location = useLocation();
-  
+
   let currentTitle = "Panel Admin";
-  
+
   // Buscar coincidencia con la ruta
   for (const path in routeTitles) {
     if (matchPath({ path, end: true }, location.pathname)) {
@@ -23,14 +23,15 @@ export default function Layout() {
       break;
     }
   }
-  
+
   useDocumentTitle(`Base | ${currentTitle}`);
 
   return (
     <>
-      <Sidebar />
-      <main className=" p-4 sm:ml-64">
+      <SidebarNavbar />
+      <main className="mt-12 p-4 sm:ml-64">
         <Outlet />
+        <Footer />
       </main>
     </>
   );
