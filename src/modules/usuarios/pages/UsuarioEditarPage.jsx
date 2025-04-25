@@ -73,9 +73,8 @@ export default function UsuarioEditarPage() {
   }, [id]);
 
   useEffect(() => {
-      const ids = perfilesUsuario.map((p) => p.idPerfil);
-      setSeleccionados(ids);
-    
+    const ids = perfilesUsuario.map((p) => p.idPerfil);
+    setSeleccionados(ids);
   }, [perfilesUsuario]);
 
   const formik = useFormik({
@@ -100,43 +99,43 @@ export default function UsuarioEditarPage() {
   }
 
   return (
-    <section className="">
+    <section className="bg-gray-50  p-3 sm:p-5">
       <Header title="Editar Perfil" ruta="Editar Perfil" />
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-        <section className=" border border-gray-200 bg-gray-50 rounded-lg mt-4">
-          <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
-            <h2 className="mb-4 text-xl font-bold text-gray-900 ">
-              Editar Permiso
-            </h2>
+      <div className="mt-4 px-4 lg:px-12 grid grid-cols-1 xl:grid-cols-2 gap-4 ">
+        <section className="border border-gray-200 bg-gray-50 rounded-lg p-5   ">
+          <h2 className="mb-4 text-xl font-bold text-gray-900 ">
+            Crear Usuario
+          </h2>
 
-            <form onSubmit={formik.handleSubmit}>
-              <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                {/* NOMBRE */}
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="nombre"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Nombre
-                  </label>
-                  <input
-                    type="text"
-                    name="nombre"
-                    id="nombre"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.nombre}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Escribe el nombre del usuario"
-                  />
-                  {formik.touched.nombre && formik.errors.nombre && (
-                    <div className="text-red-600 text-sm mt-1">
-                      {formik.errors.nombre}
-                    </div>
-                  )}
-                </div>
+          <form onSubmit={formik.handleSubmit}>
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              {/* NOMBRE */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="nombre"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  name="nombre"
+                  id="nombre"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.nombre}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el nombre del usuario"
+                />
+                {formik.touched.nombre && formik.errors.nombre && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.nombre}
+                  </div>
+                )}
+              </div>
+              <div className="sm:col-span-2  grid md:grid-cols-2 gap-4 sm:gap-6">
                 {/* APELLIDO PATERNO */}
-                <div className="sm:col-span-2">
+                <div className="">
                   <label
                     htmlFor="apellidoPaterno"
                     className="block mb-2 text-sm font-medium text-gray-900"
@@ -162,7 +161,7 @@ export default function UsuarioEditarPage() {
                     )}
                 </div>
                 {/* APELIIDO MATERNO */}
-                <div className="sm:col-span-2">
+                <div className="">
                   <label
                     htmlFor="apellidoMaterno"
                     className="block mb-2 text-sm font-medium text-gray-900"
@@ -186,8 +185,36 @@ export default function UsuarioEditarPage() {
                       </div>
                     )}
                 </div>
+              </div>
+
+              {/* EMAIL */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="nombre"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Escribe el email"
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.email}
+                  </div>
+                )}
+              </div>
+
+              <div className="sm:col-span-2  grid md:grid-cols-2 gap-4 sm:gap-6">
                 {/* USUARIO */}
-                <div className="sm:col-span-2">
+                <div className="">
                   <label
                     htmlFor="usuario"
                     className="block mb-2 text-sm font-medium text-gray-900"
@@ -210,33 +237,9 @@ export default function UsuarioEditarPage() {
                     </div>
                   )}
                 </div>
-                {/* EMAIL */}
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="nombre"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Escribe el email"
-                  />
-                  {formik.touched.email && formik.errors.email && (
-                    <div className="text-red-600 text-sm mt-1">
-                      {formik.errors.email}
-                    </div>
-                  )}
-                </div>
 
                 {/* CONTRASEÑA */}
-                <div className="sm:col-span-2">
+                <div className="">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-900"
@@ -260,26 +263,27 @@ export default function UsuarioEditarPage() {
                   )}
                 </div>
               </div>
+            </div>
 
-              <div className="lg:flex lg:gap-1">
-                <button
-                  type="submit"
-                  className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
-                >
-                  Actualizar Usuario
-                </button>
-                <Link
-                  to={"/usuarios"}
-                  onClick={() => startOnLogoutUsuario(id)}
-                  className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-red-800"
-                >
-                  Cancelar
-                </Link>
-              </div>
-            </form>
-          </div>
+            <div className="lg:flex lg:gap-1">
+              <button
+                type="submit"
+                className="inline-flex items-center w-full md:w-fit md:mr-2 lg:mr-0   px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center justify-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
+              >
+                Actualizar Usuario
+              </button>
+              <Link
+                to={"/usuarios"}
+                onClick={() => startOnLogoutUsuario(id)}
+                className="inline-flex items-center px-5 py-2.5 mt-4 md:mt-6 text-sm font-medium text-center text-white bg-red-700 justify-center w-full md:w-fit rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-red-800"
+              >
+                Cancelar
+              </Link>
+            </div>
+          </form>
         </section>
-        <div className="py-2 px-4 lg:py-8 border border-gray-200 bg-gray-50 rounded-lg mt-4 h-fit">
+
+        <div className=" px-4 lg:py-8 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Asignar Perfil
           </h2>

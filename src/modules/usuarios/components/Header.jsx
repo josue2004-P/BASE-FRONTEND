@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Header({ title,ruta=""}) {
   return (
     <header className="px-4 lg:px-12">
-      <nav className="flex flex-col-reverse sm:flex-row  w-full justify-between" aria-label="Breadcrumb">
+      <nav className="flex flex-col-reverse md:flex-row  w-full justify-between" aria-label="Breadcrumb">
         <div>
           <p className="text-2xl font-semibold mt-3">
             {title}

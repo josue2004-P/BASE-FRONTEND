@@ -2,7 +2,7 @@ import { useUsuarioStore } from "../hooks/useUsuarioStore";
 import { useEffect, useState } from "react";
 import { Header, Usuarios, SkeletonUsuarios } from "../components";
 import { Link } from "react-router-dom";
-import {  IoIosSearch } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
 
 export default function HomeAdminPage() {
   const { filtros, error, usuarios, isLoadingUsuarios, startUsuarios } =
@@ -31,7 +31,7 @@ export default function HomeAdminPage() {
   }
   return (
     <>
-      <section className="bg-gray-50  p-3 sm:p-5">
+      <section className="bg-gray-50  p-3 sm:p-5  h-[82vh] ">
         <Header title="Listado de Usuarios" ruta="" />
 
         <div className="mx-auto  mt-4 px-4 lg:px-12">
@@ -47,7 +47,6 @@ export default function HomeAdminPage() {
                     <input
                       type="text"
                       id="table-search-users"
-                      
                       className=" py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-full  bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                       placeholder="Buscar usuarios"
                       value={nombreFiltro}
@@ -61,7 +60,6 @@ export default function HomeAdminPage() {
                         startUsuarios({ nombre: "", page: 1, limit });
                       }}
                     />
-  
                   </div>
                 </form>
               </div>
