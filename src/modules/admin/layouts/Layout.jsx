@@ -1,7 +1,7 @@
 import { Outlet, useLocation, matchPath } from "react-router-dom";
 
 import useDocumentTitle from "../libs/useDocumentTitle";
-import { Sidebar, SidebarNavbar,Footer } from "../components";
+import {  SidebarNavbar,Footer } from "../components";
 
 export default function Layout() {
   const routeTitles = {
@@ -29,7 +29,7 @@ export default function Layout() {
   return (
     <>
       <SidebarNavbar />
-      <main className="mt-12 p-4 sm:ml-64">
+      <main className="mt-12 p-4 sm:ml-60">
         <Outlet />
         <Footer />
       </main>

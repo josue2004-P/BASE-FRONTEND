@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export default function Header({ title,ruta}) {
+export default function Header({ title,ruta=""}) {
   return (
     <header>
       <nav className="flex flex-col-reverse sm:flex-row  w-full justify-between" aria-label="Breadcrumb">
@@ -89,4 +89,6 @@ export default function Header({ title,ruta}) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  ruta: PropTypes.string,
+
 };
