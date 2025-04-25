@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Header({ title,ruta=""}) {
   return (
-    <header>
+    <header className="px-4 lg:px-12">
       <nav className="flex flex-col-reverse sm:flex-row  w-full justify-between" aria-label="Breadcrumb">
         <div>
           <p className="text-2xl font-semibold mt-3">
@@ -14,7 +14,7 @@ export default function Header({ title,ruta=""}) {
           <li className="inline-flex items-center">
             <Link
               to={"/"}
-              class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 "
+              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 "
             >
               <svg
                 className="w-3 h-3 me-2.5"

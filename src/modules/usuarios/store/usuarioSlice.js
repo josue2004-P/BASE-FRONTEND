@@ -6,6 +6,7 @@ export const usuarioSlice = createSlice({
     isLoadingUsuarios: true,
     usuarios: [],
     usuario: [],
+    filtros:[],
     error: null,
   },
   reducers: {
@@ -23,6 +24,12 @@ export const usuarioSlice = createSlice({
       }
       (state.isLoadingPerfiles = false), (state.perfiles = []);
       state.perfil = [];
+      state.filtros = [];
+    },
+    onFiltrosUsuario: (state, { payload }) => {
+      state.isLoadingUsuarios = false;
+      state.filtros = payload;
+
     },
     onSetError: (state, { payload }) => {
       state.error = payload;
@@ -40,6 +47,7 @@ export const {
     onLoadUsuario, 
     onLogoutUsuario ,
     onSetError,
-    onClearError
+    onClearError,
+    onFiltrosUsuario
 } =
   usuarioSlice.actions;

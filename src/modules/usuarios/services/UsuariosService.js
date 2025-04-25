@@ -11,8 +11,14 @@ export const usuarioService = {
       const { data } = await clienteAxios.get(
         `/usuarios?sNombre=${nombre}&page=${page}&limit=${limit}`
       );
+
       const usuarios = adaptarUsuarios(data.data.usuarios);
-      return usuarios;
+      return {
+        data:usuarios,
+        pageActual:data.data.page,
+        totalUsuarios:data.data.total,
+        totalPages:data.data.totalPages
+      };
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener los usuarios";
     }

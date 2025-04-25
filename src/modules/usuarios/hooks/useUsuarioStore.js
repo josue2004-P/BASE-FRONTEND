@@ -7,25 +7,32 @@ import {
   onLoadUsuarios,
   onLogoutUsuario,
   onLoadUsuario,
+  onFiltrosUsuario,
   onClearError,
   onSetError,
 } from "../store/usuarioSlice";
 
 export const useUsuarioStore = () => {
-  const { error, usuarios, usuario, isLoadingUsuarios } = useSelector(
+  const { filtros,error, usuarios, usuario, isLoadingUsuarios } = useSelector(
     (state) => state.usuario
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startUsuarios = async ({ nombre = "", page = 1, limit = 10 }) => {
+  const startUsuarios = async ({ nombre = "", page = 1, limit  }) => {
     try {
-      const data = await usuarioService.obtenerUsuarios({
+      const {data,pageActual,totalPages,totalUsuarios} = await usuarioService.obtenerUsuarios({
         nombre,
         page,
         limit,
       });
       dispatch(onLoadUsuarios(data));
+      dispatch(onFiltrosUsuario({
+        pageActual:pageActual,
+        totalPages:totalPages,
+        totalUsuarios:totalUsuarios
+      }));
+
       dispatch(onClearError());
     } catch (error) {
       dispatch(onSetError(error));
@@ -118,6 +125,7 @@ export const useUsuarioStore = () => {
     usuario,
     isLoadingUsuarios,
     error,
+    filtros,
     //* Métodos
     startUsuarios,
     startUsuario,

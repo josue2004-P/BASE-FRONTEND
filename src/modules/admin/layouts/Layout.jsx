@@ -29,7 +29,7 @@ export default function Layout() {
   return (
     <>
       <SidebarNavbar />
-      <main className="mt-12 p-4 sm:ml-60">
+      <main className="pt-16 sm:pt-10 sm:ml-60 bg-gray-50 md:relative md:h-screen">
         <Outlet />
         <Footer />
       </main>
