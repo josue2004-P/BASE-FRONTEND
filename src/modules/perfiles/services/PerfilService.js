@@ -14,7 +14,10 @@ export const perfilService = {
       const perfiles = adaptarPerfiles(data.data.perfiles);
       
       return {
-        perfiles,
+        data:perfiles,
+        pageActual:data.data.page,
+        totalUsuarios:data.data.total,
+        totalPages:data.data.totalPages
       };
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener los perfiles";

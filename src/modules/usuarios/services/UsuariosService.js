@@ -11,7 +11,6 @@ export const usuarioService = {
       const { data } = await clienteAxios.get(
         `/usuarios?sNombre=${nombre}&page=${page}&limit=${limit}`
       );
-
       const usuarios = adaptarUsuarios(data.data.usuarios);
       return {
         data:usuarios,

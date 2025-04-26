@@ -9,23 +9,40 @@ import {
   onLogoutPerfil,
   onClearError,
   onSetError,
-  onLoadPerfilesUsuario
+  onLoadPerfilesUsuario,
+  onFiltrosPerfil
 } from "../store/perfilSlice";
 
 export const usePerfilStore = () => {
-  const {perfilesUsuario, error,perfiles, perfil, isLoadingPerfiles } = useSelector(
-    (state) => state.perfil
-  );
+  const {
+    filtros,
+    perfilesUsuario,
+    error,
+    perfiles,
+    perfil,
+    isLoadingPerfiles,
+  } = useSelector((state) => state.perfil);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startPerfiles = async({ nombre = "", page = 1, limit = 10 }) => {
+  const startPerfiles = async ({ nombre = "", page = 1, limit = 10 }) => {
     try {
-      const {perfiles} = await perfilService.obtenerPerfiles({nombre,page,limit});
-      dispatch(onLoadPerfiles(perfiles));
+      const {data,pageActual,totalPages,totalUsuarios} = await perfilService.obtenerPerfiles({
+        nombre,
+        page,
+        limit,
+      });
+      dispatch(onLoadPerfiles(data));
+      dispatch(
+        onFiltrosPerfil({
+          pageActual: pageActual,
+          totalPages: totalPages,
+          totalUsuarios: totalUsuarios,
+        })
+      );
       dispatch(onClearError());
     } catch (error) {
-        dispatch(onSetError(error));
+      dispatch(onSetError(error));
     }
   };
 
@@ -89,7 +106,6 @@ export const usePerfilStore = () => {
   };
 
   const startEliminarPerfil = async (items) => {
-    
     const result = await Swal.fire({
       title: `¿Deseas eliminar el perfil ${items.nombre}?`,
       text: `Los datos ya no podrán ser recuperados`,
@@ -107,7 +123,7 @@ export const usePerfilStore = () => {
           title: data.message || "Perfil eliminado correctamente.",
           icon: "success",
         });
-        startPerfiles({nombre:""})
+        startPerfiles({ nombre: "" });
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",
@@ -120,7 +136,6 @@ export const usePerfilStore = () => {
 
   const startAsignarPerfilesUsuario = async (datos) => {
     try {
-
       const data = await perfilService.asignarPerfilesUsuario(datos);
       Swal.fire({
         title: data.message,
@@ -140,6 +155,7 @@ export const usePerfilStore = () => {
 
   return {
     //* Propiedades
+    filtros,
     perfilesUsuario,
     error,
     perfiles,
@@ -153,6 +169,6 @@ export const usePerfilStore = () => {
     startEliminarPerfil,
     startOnLogoutPerfil,
     startAsignarPerfilesUsuario,
-    startPerfilesUsuario
+    startPerfilesUsuario,
   };
 };

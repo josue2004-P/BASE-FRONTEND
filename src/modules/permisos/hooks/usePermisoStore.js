@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { permisoService } from '../services/permisoService';
+import { permisoService } from "../services/permisoService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -8,22 +8,31 @@ import {
   onLogoutPermiso,
   onLoadPermiso,
   onClearError,
-  onSetError
-  } from "../store/permisoSlice"
+  onSetError,
+  onFiltrosPermiso,
+} from "../store/permisoSlice";
 
 export const usePermisoStore = () => {
-
-  const { error,permisos, permiso,isLoadingPermisos} = useSelector((state) => state.permiso);
+  const {filtros, error, permisos, permiso, isLoadingPermisos } = useSelector(
+    (state) => state.permiso
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startPermisos = async({ nombre = "", page = 1, limit = 10 }) => {
+  const startPermisos = async ({ nombre = "", page = 1, limit = 10 }) => {
     try {
-      const {permisos} = await permisoService.obtenerPermisos({nombre,page,limit});
-      dispatch(onLoadPermisos(permisos));
+      const { data, pageActual, totalPages, totalUsuarios } =await permisoService.obtenerPermisos({ nombre, page, limit });
+      dispatch(onLoadPermisos(data));
+      dispatch(
+        onFiltrosPermiso({
+          pageActual: pageActual,
+          totalPages: totalPages,
+          totalUsuarios: totalUsuarios,
+        })
+      );
       dispatch(onClearError());
     } catch (error) {
-        dispatch(onSetError(error));
+      dispatch(onSetError(error));
     }
   };
 
@@ -38,23 +47,23 @@ export const usePermisoStore = () => {
       });
       navigate("permisos");
     }
-    };
+  };
 
-    const startCrearPermisos = async (datos) => {
-      try {
-        const data = await permisoService.crearPermiso(datos);
-        Swal.fire({
-          title: data.message,
-          icon: "success",
-        });
-        navigate("permisos");
-      } catch (error) {
-        Swal.fire({
-          title: error,
-          icon: "error",
-        });
-      }
-    };
+  const startCrearPermisos = async (datos) => {
+    try {
+      const data = await permisoService.crearPermiso(datos);
+      Swal.fire({
+        title: data.message,
+        icon: "success",
+      });
+      navigate("permisos");
+    } catch (error) {
+      Swal.fire({
+        title: error,
+        icon: "error",
+      });
+    }
+  };
 
   const startActualizarPermiso = async (id, datos) => {
     try {
@@ -72,9 +81,8 @@ export const usePermisoStore = () => {
       startPermisos();
     }
   };
- 
+
   const startEliminarPermiso = async (items) => {
-    
     const result = await Swal.fire({
       title: `¿Deseas eliminar el permiso ${items.nombre}?`,
       text: `Los datos ya no podrán ser recuperados`,
@@ -92,7 +100,7 @@ export const usePermisoStore = () => {
           title: data.message || "Permiso eliminado correctamente.",
           icon: "success",
         });
-        startPermisos({nombre:""})
+        startPermisos({ nombre: "" });
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",
@@ -107,9 +115,9 @@ export const usePermisoStore = () => {
     dispatch(onLogoutPermiso(id));
   };
 
-
   return {
     //* Propiedades
+    filtros,
     permisos,
     permiso,
     error,
@@ -120,7 +128,6 @@ export const usePermisoStore = () => {
     startCrearPermisos,
     startActualizarPermiso,
     startOnLogoutPermiso,
-    startEliminarPermiso
- 
+    startEliminarPermiso,
   };
 };

@@ -36,6 +36,7 @@ export default function HomeAdminPage() {
 
         <div className="mx-auto  mt-4 px-4 lg:px-12">
           <div className="bg-white  relative shadow-md sm:rounded-lg overflow-hidden">
+
             <div className="flex flex-col lg:flex-row items-center justify-between space-y-3 lg:space-y-0 lg:space-x-4 p-4">
               <div className="w-full  md:w-1/2 my-auto">
                 <form className="flex items-center h-full">
@@ -193,6 +194,7 @@ export default function HomeAdminPage() {
                 </div> */}
               </div>
             </div>
+
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 ">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -244,6 +246,7 @@ export default function HomeAdminPage() {
                 </tbody>
               </table>
             </div>
+            
             <nav
               className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
               aria-label="Table navigation"

@@ -6,6 +6,7 @@ export const permisoSlice = createSlice({
     isLoadingPermisos: true,
     permisos: [],
     permiso: [],
+    filtros:[],
     error: null,
   },
   reducers: {
@@ -24,6 +25,10 @@ export const permisoSlice = createSlice({
       (state.isLoadingPermisos = false), (state.permisos = []);
       state.permiso = [];
     },
+    onFiltrosPermiso: (state, { payload }) => {
+      state.isLoadingUsuarios = false;
+      state.filtros = payload;
+    },
     onSetError: (state, { payload }) => {
       state.error = payload;
       state.isLoadingPermisos = false;
@@ -40,6 +45,7 @@ export const {
     onLoadPermisos, 
     onLogoutPermiso ,
     onSetError,
-    onClearError
+    onClearError,
+    onFiltrosPermiso
 } =
   permisoSlice.actions;

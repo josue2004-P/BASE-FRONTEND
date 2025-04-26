@@ -7,6 +7,7 @@ export const perfilSlice = createSlice({
     perfiles: [],
     perfil: [],
     perfilesUsuario: [],
+    filtros:[],
     error: null,
   },
   reducers: {
@@ -29,6 +30,10 @@ export const perfilSlice = createSlice({
       (state.isLoadingPerfiles = false), (state.perfiles = []);
       state.perfil = [];
     },
+    onFiltrosPerfil: (state, { payload }) => {
+      state.isLoadingUsuarios = false;
+      state.filtros = payload;
+    },
     onSetError: (state, { payload }) => {
       state.error = payload;
       state.isLoadingPerfiles = false;
@@ -47,5 +52,6 @@ export const {
   onLogoutPerfiles,
   onSetError,
   onClearError,
-  onLoadPerfilesUsuario
+  onLoadPerfilesUsuario,
+  onFiltrosPerfil
 } = perfilSlice.actions;

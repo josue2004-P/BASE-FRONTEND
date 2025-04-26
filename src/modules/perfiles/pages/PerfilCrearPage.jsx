@@ -31,10 +31,10 @@ export default function PerfilCrearPage() {
 
   return (
     <section className="bg-gray-50  p-3 sm:p-5">
-      <Header title="Crear Perfil" />
+      <Header title="Crear Perfil" ruta="Crear Perfil" />
 
       <section className=" mx-auto  mt-4 px-4 lg:px-12  ">
-        <div className="border border-gray-200 bg-gray-50 rounded-lg p-5 max-w-xl  ">
+        <div className="border border-gray-200 bg-gray-50 rounded-lg p-5 max-w-md">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Crear Perfil
           </h2>
@@ -73,7 +73,7 @@ export default function PerfilCrearPage() {
                 <textarea
                   id="descripcion"
                   name="descripcion"
-                  rows="8"
+                  rows="5"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
                   placeholder="Escribe la descripción del perfil"
                   onChange={formik.handleChange}

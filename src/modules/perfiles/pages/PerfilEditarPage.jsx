@@ -46,10 +46,10 @@ export default function PerfilEditarPage() {
   }
 
   return (
-    <section className="">
-      <Header title="Editar Perfil" />
-      <section className="max-w-lg border border-gray-200 bg-gray-50 rounded-lg mt-4">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
+    <section className="bg-gray-50  p-3 sm:p-5">
+      <Header title="Editar Perfil" ruta="Editar Perfil"/>
+      <section className=" mx-auto  mt-4 px-4 lg:px-12  ">
+        <div className="border border-gray-200 bg-gray-50 rounded-lg p-5 max-w-md">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Editar Perfil
           </h2>
@@ -111,7 +111,7 @@ export default function PerfilEditarPage() {
                 <textarea
                   id="descripcion"
                   name="descripcion"
-                  rows="8"
+                  rows="5"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
                   placeholder="Escribe la descripción del perfil"
                   onChange={formik.handleChange}

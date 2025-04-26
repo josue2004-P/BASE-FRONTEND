@@ -14,7 +14,10 @@ export const permisoService = {
       const permisos = adaptarPermisos(data.data.permisos);
       
       return {
-        permisos,
+        data:permisos,
+        pageActual:data.data.page,
+        totalUsuarios:data.data.total,
+        totalPages:data.data.totalPages
       };
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener los permisos";

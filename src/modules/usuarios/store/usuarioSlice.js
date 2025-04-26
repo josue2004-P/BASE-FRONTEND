@@ -29,7 +29,6 @@ export const usuarioSlice = createSlice({
     onFiltrosUsuario: (state, { payload }) => {
       state.isLoadingUsuarios = false;
       state.filtros = payload;
-
     },
     onSetError: (state, { payload }) => {
       state.error = payload;
