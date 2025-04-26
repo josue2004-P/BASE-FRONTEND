@@ -31,7 +31,7 @@ export default function HomeAdminPage() {
   }
   return (
     <>
-      <section className="bg-gray-50  p-3 sm:p-5  h-[82vh] ">
+      <section className="bg-gray-50  p-3 sm:p-5  ">
         <Header title="Listado de Usuarios" ruta="" />
 
         <div className="mx-auto  mt-4 px-4 lg:px-12">

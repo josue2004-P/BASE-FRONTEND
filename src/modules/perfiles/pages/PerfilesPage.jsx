@@ -25,8 +25,8 @@ export default function PerfilesPage() {
   }
   return (
     <>
-      <section className="overflow-hidden">
-        <Header title="" />
+    <section className="bg-gray-50  p-3 sm:p-5">
+        <Header title="Perfiles"  />
 
         <div className=" flex items-center  sm:justify-end flex-column md:flex-row flex-wrap space-y-1 sm:space-y-4 md:space-y-0 py-4 ">
           <div className="relative w-full lg:w-fit  ">

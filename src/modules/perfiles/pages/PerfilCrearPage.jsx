@@ -30,11 +30,11 @@ export default function PerfilCrearPage() {
   });
 
   return (
-    <section className="">
+    <section className="bg-gray-50  p-3 sm:p-5">
       <Header title="Crear Perfil" />
 
-      <section className="max-w-lg border border-gray-200 bg-gray-50 rounded-lg mt-4">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
+      <section className=" mx-auto  mt-4 px-4 lg:px-12  ">
+        <div className="border border-gray-200 bg-gray-50 rounded-lg p-5 max-w-xl  ">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Crear Perfil
           </h2>

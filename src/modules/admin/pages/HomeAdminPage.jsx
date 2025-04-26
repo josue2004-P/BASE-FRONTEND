@@ -4,7 +4,8 @@ export default function HomeAdminPage() {
 
   return (
     <>
-      <section className="">
+    
+      <section className=" p-3 sm:p-5">
           <Header title="Inicio" />
       </section>
     </>

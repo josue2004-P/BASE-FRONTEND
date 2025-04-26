@@ -101,11 +101,11 @@ export default function UsuarioEditarPage() {
 
   return (
     <section className="bg-gray-50  p-3 sm:p-5">
-      <Header title="Editar Perfil" ruta="Editar Perfil" />
+      <Header title="Editar Usuario" ruta="Editar Usuario" />
       <div className="mt-4 px-4 lg:px-12 grid grid-cols-1 xl:grid-cols-2 gap-4 ">
         <section className="border border-gray-200 bg-gray-50 rounded-lg p-5   ">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
-            Crear Usuario
+            Editar Usuario
           </h2>
 
           <form onSubmit={formik.handleSubmit}>
@@ -298,7 +298,7 @@ export default function UsuarioEditarPage() {
           </div>
           <button
             onClick={handleObtenerSeleccionados}
-            className="inline-flex items-center w-full md:w-fit md:mr-2 lg:mr-0   px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center justify-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
+            className="inline-flex items-center w-full md:w-fit md:mr-2 lg:mr-0   px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center justify-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
           >
             Asignar Perfiles
           </button>

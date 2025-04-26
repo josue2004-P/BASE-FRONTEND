@@ -43,7 +43,7 @@ export default function UsuarioCrearPage() {
   });
 
   return (
-    <section className="bg-gray-50  p-3 sm:p-5 h-[82vh]">
+    <section className="bg-gray-50  p-3 sm:p-5">
       <Header title="Crear Usuario" ruta={"Crear Perfil"} />
 
       <section className=" mx-auto  mt-4 px-4 lg:px-12  ">
