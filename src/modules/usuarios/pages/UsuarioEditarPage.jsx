@@ -1,5 +1,4 @@
 import { Header, ListadoPerfiles } from "../components";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useUsuarioStore } from "../hooks/useUsuarioStore";
 import { usePerfilStore } from "../../perfiles/hooks/usePerfilStore";
@@ -24,9 +23,6 @@ const validationSchema = Yup.object({
     .min(3, "El usuario debe tener al menos 3 caracteres")
     .required("El usuario es obligatorio"),
   email: Yup.string().required("El correo es obligatorio"),
-  password: Yup.string()
-    .min(8, "La contraseña debe tener al menos 8 caracteres")
-    .required("La contraseña es obligatorio"),
 });
 
 export default function UsuarioEditarPage() {
@@ -82,16 +78,24 @@ export default function UsuarioEditarPage() {
     initialValues: {
       id: usuario?.id || "",
       nombre: usuario?.nombre || "",
-      apellidoPaterno: usuario?.apellidoMaterno || "",
-      apellidoMaterno: usuario?.apellidoPaterno || "",
+      apellidoPaterno: usuario?.apellidoPaterno || "",
+      apellidoMaterno: usuario?.apellidoMaterno || "",
       usuario: usuario?.usuario || "",
       email: usuario?.email || "",
-      password: usuario?.password || "",
+      password: "",
     },
     enableReinitialize: true, // 🔑 permite que se reinicialicen los valores al cambiar permiso
     validationSchema,
     onSubmit: (values) => {
       startActualizarUsuario(id, values);
+
+      // Después de actualizar, vacías el password
+      formik.resetForm({
+        values: {
+          ...values,
+          password: "", // Aquí vacías el password
+        },
+      });
     },
   });
 
@@ -257,11 +261,9 @@ export default function UsuarioEditarPage() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Escribe la contraseña"
                   />
-                  {formik.touched.password && formik.errors.password && (
-                    <div className="text-red-600 text-sm mt-1">
-                      {formik.errors.password}
-                    </div>
-                  )}
+                  <div className="text-blue-600 text-xs mt-1">
+                    Dejar en blanco si no se hace cambio de contraseña
+                  </div>
                 </div>
               </div>
             </div>
@@ -285,12 +287,14 @@ export default function UsuarioEditarPage() {
         </section>
 
         <div className=" px-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
-          <h2 className="my-4 sm: text-xl font-bold text-gray-900 ">Perfiles</h2>
+          <h2 className="my-4 sm: text-xl font-bold text-gray-900 ">
+            Perfiles
+          </h2>
           <div className="flex flex-col gap-3">
-            {perfiles.map((items, key) => (
+            {perfiles.map((items, index) => (
               <ListadoPerfiles
                 items={items}
-                key={key}
+                key={index}
                 checked={seleccionados.includes(items.id)}
                 onSeleccionChange={manejarSeleccion}
               />
@@ -307,9 +311,3 @@ export default function UsuarioEditarPage() {
     </section>
   );
 }
-
-ListadoPerfiles.propTypes = {
-  title: PropTypes.string.isRequired,
-  ruta: PropTypes.string,
-
-};

@@ -36,5 +36,4 @@ ListadoPerfiles.propTypes = {
   }).isRequired,
   checked: PropTypes.bool,
   onSeleccionChange: PropTypes.func.isRequired,
-
 };

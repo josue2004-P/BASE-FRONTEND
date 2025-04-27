@@ -75,13 +75,13 @@ export const useUsuarioStore = () => {
         title: data.message,
         icon: "success",
       });
-      navigate("usuarios");
+      startUsuario(id)
     } catch (error) {
       Swal.fire({
         title: error,
         icon: "error",
       });
-      startUsuarios();
+      startUsuarios({ nombre: "" });
     }
   };
 

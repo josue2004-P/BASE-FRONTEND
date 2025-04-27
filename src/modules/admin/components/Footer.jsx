@@ -9,7 +9,7 @@ export default function Footer() {
             className="hover:underline"
             target="_blank"
           >
-            Flowbite.com
+            josuepedev.com
           </a>
           . All rights reserved.
         </p>
