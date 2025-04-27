@@ -27,6 +27,8 @@ export function adaptarCrearActualizarUsuarios(usuariosRaw) {
   return {
     sNombre: usuariosRaw.nombre,
     sApellidoPaterno: usuariosRaw.apellidoPaterno,
+    sEmail: usuariosRaw.email,
+    sUsuario: usuariosRaw.usuario,
     sApellidoMaterno: usuariosRaw.apellidoMaterno,
     sPassword: usuariosRaw.password,
   };

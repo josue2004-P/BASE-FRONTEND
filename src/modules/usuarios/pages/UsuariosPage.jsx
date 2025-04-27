@@ -10,7 +10,7 @@ export default function HomeAdminPage() {
 
   const [nombreFiltro, setNombreFiltro] = useState("");
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 5;
 
   useEffect(() => {
     startUsuarios({ nombre: "", page, limit });
@@ -21,10 +21,10 @@ export default function HomeAdminPage() {
     startUsuarios({ nombre: nombreFiltro, page: 1, limit });
   };
 
+  
   if (isLoadingUsuarios) {
     return (
       <section className="bg-gray-50 p-3 sm:p-5">
-        <Header title="Listado de Usuarios" ruta="" />
         <SkeletonUsuarios />
       </section>
     );
@@ -240,7 +240,7 @@ export default function HomeAdminPage() {
                     </tr>
                   ) : (
                     usuarios.map((item, index) => (
-                      <Usuarios key={index} items={item} />
+                      <Usuarios key={index} items={item} limit={limit} />
                     ))
                   )}
                 </tbody>

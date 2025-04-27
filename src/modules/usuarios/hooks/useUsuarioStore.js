@@ -85,7 +85,7 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startEliminarUsuario = async (items) => {
+  const startEliminarUsuario = async (items,limit) => {
 
     const result = await Swal.fire({
       title: `¿Deseas eliminar el usuario ${items.nombreCompleto}?`,
@@ -101,10 +101,10 @@ export const useUsuarioStore = () => {
       try {
         const data = await usuarioService.eliminarUsuario(items.id);
         Swal.fire({
-          title: data.message || "Perfil eliminado correctamente.",
+          title: data.message || "Usuario eliminado correctamente.",
           icon: "success",
         });
-        startUsuarios({ nombre: "" });
+        startUsuarios({limit:limit});
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",

@@ -87,6 +87,9 @@ export default function UsuarioEditarPage() {
     enableReinitialize: true, // 🔑 permite que se reinicialicen los valores al cambiar permiso
     validationSchema,
     onSubmit: (values) => {
+      // Crea un objeto nuevo SIN email y usuario
+      const { email, usuario, ...valuesToUpdate } = values;
+
       startActualizarUsuario(id, values);
 
       // Después de actualizar, vacías el password
@@ -100,7 +103,11 @@ export default function UsuarioEditarPage() {
   });
 
   if (isLoadingPerfiles || isLoadingUsuarios || !usuario?.nombre) {
-    return <h2 className="text-2xl font-semibold">CARGANDO...</h2>;
+    return (
+      <section className="bg-gray-50 p-3 sm:p-5 ">
+        <h2 className="text-2xl font-semibold">CARGANDO...</h2>;
+      </section>
+    );
   }
 
   return (

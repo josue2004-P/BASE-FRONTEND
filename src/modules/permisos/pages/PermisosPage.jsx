@@ -1,6 +1,6 @@
 import { usePermisoStore } from "../hooks/usePermisoStore";
 import { useEffect, useState } from "react";
-import { Header, Permisos } from "../components";
+import { Header, Permisos, SkeletonPermisos } from "../components";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -21,8 +21,11 @@ export default function PermisosPage() {
     startPermisos({ nombre: nombreFiltro, page: 1, limit });
   };
 
+
   if (isLoadingPermisos) {
-    <h2 className="text-2xl font-semibold">CARGANDO</h2>;
+    <section className="bg-gray-50 p-3 sm:p-5">
+      <SkeletonPermisos />
+    </section>;
   }
 
   return (

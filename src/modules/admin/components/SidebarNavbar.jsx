@@ -52,7 +52,7 @@ export default function SidebarNavbar() {
                 </span>
               </a>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <div className="flex items-center ms-3">
                 <div>
                   <button
@@ -97,7 +97,7 @@ export default function SidebarNavbar() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>
