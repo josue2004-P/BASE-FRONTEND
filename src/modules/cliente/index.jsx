@@ -1,4 +1,4 @@
-export {default as HomeClientePage} from './pages/HomeClientePage'
+export {default as ClienteRoutes} from './routes/ClienteRoutes'
 
 
 

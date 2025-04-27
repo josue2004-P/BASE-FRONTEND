@@ -2,9 +2,9 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthStore } from "../auth/hooks/useAuthStore";
 
-import { HomeClientePage } from "../cliente";
+import ClienteRoutes from "../cliente/routes/ClienteRoutes";
 
-import AuthRoutes  from "../auth/routes/AuthRoutes";
+import AuthRoutes from "../auth/routes/AuthRoutes";
 import AdminRoutes from "../admin/routes/AdminRoutes";
 import NoPerfilRoutes from "../noPerfil/routes/NoPerfilRoutes";
 
@@ -25,7 +25,7 @@ export default function AppRouter() {
     <Routes>
       {status === "not-authenticated" ? (
         <>
-          <Route path="/*" element={<AuthRoutes/>} />
+          <Route path="/*" element={<AuthRoutes />} />
         </>
       ) : status === "authenticated" &&
         user.perfil.includes("ADMINISTRADOR") ? (
@@ -34,8 +34,7 @@ export default function AppRouter() {
       ) : status === "authenticated" && user.perfil.includes("CLIENTE") ? (
         // CLIENTE
         <>
-          <Route path="/" element={<HomeClientePage />} />
-          <Route path="/*" element={<Navigate to="/" />} />
+          <Route path="/*" element={<ClienteRoutes />} />
         </>
       ) : (
         // USUARIOS SIN PERFIL

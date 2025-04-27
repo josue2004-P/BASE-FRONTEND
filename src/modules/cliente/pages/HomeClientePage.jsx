@@ -1,9 +1,8 @@
-import Layout from "../layouts/Layout";
-
+import { Header } from "../components";
 export default function HomeClientePage() {
   return (
-    <Layout title="Home Cliente">
-      <h1 className="text-2xl">CLIENTE</h1>
-    </Layout>
+    <section className=" p-3 sm:p-5">
+      <Header title="Inicio" />
+    </section>
   );
 }
