@@ -1,7 +1,7 @@
 import { Header, ListadoPerfiles } from "../components";
 import { Link } from "react-router-dom";
 import { useUsuarioStore } from "../hooks/useUsuarioStore";
-import { usePerfilStore } from "../../perfiles/hooks/usePerfilStore";
+import { usePerfilStore } from "../../perfil/hooks/usePerfilStore";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";

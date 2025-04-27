@@ -3,7 +3,7 @@ import { authService } from '../services/AuthService';
 import Swal from "sweetalert2";
 
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/authSlice";
-import { onLogoutPerfil } from "../../perfiles/store";
+import { onLogoutPerfil } from "../../perfil/store";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);

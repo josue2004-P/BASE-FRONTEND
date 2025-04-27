@@ -1,0 +1,1 @@
+export {default as NoPerfilRoutes} from "./routes/NoPerfilRoutes";

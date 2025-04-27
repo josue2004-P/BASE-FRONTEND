@@ -6,7 +6,7 @@ import {
 
 import {
   usuarioSlice
-} from "../modules/usuarios/store"
+} from "../modules/usuario/store"
 
 import {
   authSlice,
@@ -14,11 +14,11 @@ import {
 
 import {
   permisoSlice,
-} from "../modules/permisos/store";
+} from "../modules/permiso/store";
 
 import {
   perfilSlice,
-} from "../modules/perfiles/store";
+} from "../modules/perfil/store";
 
 export const store = configureStore({
   reducer: {
