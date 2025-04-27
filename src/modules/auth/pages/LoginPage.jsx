@@ -2,6 +2,13 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+
+// Esquema de validación
+const validationSchema = Yup.object({
+  email: Yup.string().required("El correo es obligatorio"),
+  password: Yup.string().required("La contraseña es obligatoria"),
+});
 
 export default function LoginPage() {
   const { startLogin, errorMessage } = useAuthStore();
@@ -11,73 +18,100 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
+    validationSchema,
     onSubmit: (values) => {
       startLogin({ sEmail: values.email, sPassword: values.password });
     },
   });
 
-  useEffect(() => {
-    if (errorMessage !== undefined) {
-      Swal.fire("Error en la autenticación", errorMessage, "error");
-    }
-  }, [errorMessage]);
-
   return (
-    <div className="h-screen bg-gray-200">
-      <section className="h-full w-full ">
-        <div className="flex justify-center items-center h-full">
-          <div className="shadow-gray-300 shadow-lg w-11/12 md:w-7/12 lg:grid lg:grid-cols-2 lg:w-7/12 2xl:w-5/12 rounded-xl lg:h-[25rem]">
-            <div className="hidden lg:flex justify-center items-center">
-              <img className="w-[15rem]" src="../logo-angeles.png" alt="" />
-            </div>
+    <div className="border border-gray-200 bg-gray-50 rounded-lg p-5 w-[22rem] shadow-xl mx-4 sm:mx-0">
+      <h2 className="mb-4 text-xl font-bold text-gray-900 ">Iniciar Sesión</h2>
 
-            <div className="p-6 space-y-4 md:space-y-6 lg:space-y-3 sm:p-8 relative flex justify-center flex-col ">
-              <h1 className=" font-bold  text-gray-500 text-4xl  text-center">
-                Login
-              </h1>
-              <form
-                className="space-y-4 md:space-y-6 lg:space-y-5 "
-                onSubmit={formik.handleSubmit}
-              >
-                <div>
-                  <label className="block mb-1 text-sm font-medium text-gray-900">
-                    Correo
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="name@example.com"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-[#16351b]">
-                    Contraseña
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-[#004b93] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                >
-                  Iniciar Sesion
-                </button>
-              </form>
+      <form onSubmit={formik.handleSubmit}>
+        {errorMessage !== undefined ? (
+          <div
+            className="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+            role="alert"
+          >
+            <svg
+              className="shrink-0 inline w-4 h-4 me-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">Hubo un problema al Iniciar Sesión!</span>{" "}
+              {errorMessage}
             </div>
           </div>
+        ) : (
+          ""
+        )}
+
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Correo
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              placeholder="example@example.com"
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className="text-red-600 text-sm mt-1">
+                {formik.errors.email}
+              </div>
+            )}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="descripcion"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Contraseña
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              placeholder="••••••••"
+            />
+            {formik.touched.password && formik.errors.password && (
+              <div className="text-red-600 text-sm mt-1">
+                {formik.errors.password}
+              </div>
+            )}
+          </div>
         </div>
-      </section>
+
+        <div className="lg:flex lg:gap-1">
+          <button
+            type="submit"
+            className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
+          >
+            Iniciar Sesión
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

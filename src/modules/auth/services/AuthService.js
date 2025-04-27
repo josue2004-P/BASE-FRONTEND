@@ -7,7 +7,7 @@ export const authService = {
       const { data } = await clienteAxios.post('/auth', { sEmail, sPassword });
       return data;
     } catch (error) {
-      throw error?.response?.data?.message || 'Error al iniciar sesión';
+      throw error?.response?.data?.message || 'Error al iniciar sesión hable con el administrador.';
     }
   },
 
