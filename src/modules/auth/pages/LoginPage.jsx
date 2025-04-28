@@ -44,6 +44,7 @@ export default function LoginPage() {
               type="email"
               name="email"
               id="email"
+              autoComplete="username"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
@@ -68,6 +69,7 @@ export default function LoginPage() {
               type="password"
               name="password"
               id="password"
+              autoComplete="current-password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}

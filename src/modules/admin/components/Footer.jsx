@@ -11,7 +11,7 @@ export default function Footer() {
           >
             josuepedev.com
           </a>
-          . All rights reserved.
+          . Derechos Reservados.
         </p>
       </div>
     </footer>
