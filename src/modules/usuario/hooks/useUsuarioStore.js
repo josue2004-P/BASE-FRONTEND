@@ -13,25 +13,28 @@ import {
 } from "../store/usuarioSlice";
 
 export const useUsuarioStore = () => {
-  const { filtros,error, usuarios, usuario, isLoadingUsuarios } = useSelector(
+  const { filtros, error, usuarios, usuario, isLoadingUsuarios } = useSelector(
     (state) => state.usuario
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const startUsuarios = async ({ nombre = "", page = 1, limit  }) => {
+  const startUsuarios = async ({ nombre = "", page = 1, limit }) => {
     try {
-      const {data,pageActual,totalPages,totalUsuarios} = await usuarioService.obtenerUsuarios({
-        nombre,
-        page,
-        limit,
-      });
+      const { data, pageActual, totalPages, totalUsuarios } =
+        await usuarioService.obtenerUsuarios({
+          nombre,
+          page,
+          limit,
+        });
       dispatch(onLoadUsuarios(data));
-      dispatch(onFiltrosUsuario({
-        pageActual:pageActual,
-        totalPages:totalPages,
-        totalUsuarios:totalUsuarios
-      }));
+      dispatch(
+        onFiltrosUsuario({
+          pageActual: pageActual,
+          totalPages: totalPages,
+          totalUsuarios: totalUsuarios,
+        })
+      );
 
       dispatch(onClearError());
     } catch (error) {
@@ -54,12 +57,27 @@ export const useUsuarioStore = () => {
 
   const startCrearUsuario = async (datos) => {
     try {
-      const data = await usuarioService.crearUsuario(datos);
+      const formData = new FormData();
+
+      // Añadir los campos normales del formulario
+      formData.append("sNombre", datos.nombre);
+      formData.append("sApellidoPaterno", datos.apellidoPaterno);
+      formData.append("sApellidoMaterno", datos.apellidoMaterno);
+      formData.append("sUsuario", datos.usuario);
+      formData.append("sEmail", datos.email);
+      formData.append("sPassword", datos.password);
+
+      // Añadir la imagen
+      if (datos.usuarioImagen) {
+        formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
+      }
+
+      const data = await usuarioService.crearUsuario(formData); // Pasamos el formData al servicio
       Swal.fire({
         title: data.message,
         icon: "success",
       });
-      navigate("usuarios");
+      // navigate("/usuarios");
     } catch (error) {
       Swal.fire({
         title: error,
@@ -75,7 +93,7 @@ export const useUsuarioStore = () => {
         title: data.message,
         icon: "success",
       });
-      startUsuario(id)
+      startUsuario(id);
     } catch (error) {
       Swal.fire({
         title: error,
@@ -85,8 +103,7 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startEliminarUsuario = async (items,limit) => {
-
+  const startEliminarUsuario = async (items, limit) => {
     const result = await Swal.fire({
       title: `¿Deseas eliminar el usuario ${items.nombreCompleto}?`,
       text: `Los datos ya no podrán ser recuperados`,
@@ -104,7 +121,7 @@ export const useUsuarioStore = () => {
           title: data.message || "Usuario eliminado correctamente.",
           icon: "success",
         });
-        startUsuarios({limit:limit});
+        startUsuarios({ limit: limit });
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",

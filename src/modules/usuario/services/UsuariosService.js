@@ -13,10 +13,10 @@ export const usuarioService = {
       );
       const usuarios = adaptarUsuarios(data.data.usuarios);
       return {
-        data:usuarios,
-        pageActual:data.data.page,
-        totalUsuarios:data.data.total,
-        totalPages:data.data.totalPages
+        data: usuarios,
+        pageActual: data.data.page,
+        totalUsuarios: data.data.total,
+        totalPages: data.data.totalPages,
       };
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener los usuarios";
@@ -31,12 +31,17 @@ export const usuarioService = {
       throw error?.response?.data?.message || "Error al obtener el usuario";
     }
   },
-  crearUsuario: async (datos) => {
+  crearUsuario: async (formData) => {
+    // Recibe formData
     try {
-      const usuario = adaptarCrearActualizarUsuarios(datos);
-      const data = await clienteAxios.post("/usuarios", usuario);
+      const data = await clienteAxios.post("/usuarios", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Especificamos que estamos enviando datos multipart
+        },
+      });
       return data.data;
     } catch (error) {
+      console.log(error)
       throw error?.response?.data?.message || "Error al crear el usuario";
     }
   },
