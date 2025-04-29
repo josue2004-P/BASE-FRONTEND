@@ -293,26 +293,37 @@ export default function UsuarioEditarPage() {
           </form>
         </section>
 
-        <div className=" px-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
-          <h2 className="my-4 sm: text-xl font-bold text-gray-900 ">
-            Perfiles
-          </h2>
-          <div className="flex flex-col gap-3">
-            {perfiles.map((items, index) => (
-              <ListadoPerfiles
-                items={items}
-                key={index}
-                checked={seleccionados.includes(items.id)}
-                onSeleccionChange={manejarSeleccion}
-              />
-            ))}
+        <div className="flex flex-col gap-4">
+          <div className=" px-4 pb-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
+            <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">
+              Perfiles
+            </h2>
+            <div className="flex flex-col gap-3">
+              {perfiles.map((items, index) => (
+                <ListadoPerfiles
+                  items={items}
+                  key={index}
+                  checked={seleccionados.includes(items.id)}
+                  onSeleccionChange={manejarSeleccion}
+                />
+              ))}
+            </div>
+            <button
+              onClick={handleObtenerSeleccionados}
+              className="inline-flex items-center w-full md:w-fit md:mr-2 lg:mr-0   px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center justify-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
+            >
+              Asignar Perfiles
+            </button>
           </div>
-          <button
-            onClick={handleObtenerSeleccionados}
-            className="inline-flex items-center w-full md:w-fit md:mr-2 lg:mr-0   px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center justify-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
-          >
-            Asignar Perfiles
-          </button>
+
+          <div className=" px-4 pb-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
+            <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">
+              Imagen
+            </h2>
+            <div className="flex flex-col gap-3">
+                <h1>Hola</h1>
+            </div>
+          </div>
         </div>
       </div>
     </section>
