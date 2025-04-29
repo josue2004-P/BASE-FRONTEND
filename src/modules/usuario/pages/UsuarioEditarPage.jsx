@@ -83,6 +83,7 @@ export default function UsuarioEditarPage() {
       usuario: usuario?.usuario || "",
       email: usuario?.email || "",
       password: "",
+      usuarioImagen: null, // Campo para la imagen
     },
     enableReinitialize: true, // 🔑 permite que se reinicialicen los valores al cambiar permiso
     validationSchema,
@@ -114,7 +115,7 @@ export default function UsuarioEditarPage() {
     <section className="bg-gray-50  p-3 sm:p-5">
       <Header title="Editar Usuario" ruta="Editar Usuario" />
       <div className="mt-4 px-4 lg:px-12 grid grid-cols-1 xl:grid-cols-2 gap-4 ">
-        <section className="border border-gray-200 bg-gray-50 rounded-lg p-5   ">
+        <section className="border border-gray-200 bg-gray-50 rounded-lg p-5   h-fit">
           <h2 className="mb-4 text-xl font-bold text-gray-900 ">
             Editar Usuario
           </h2>
@@ -273,6 +274,33 @@ export default function UsuarioEditarPage() {
                   </div>
                 </div>
               </div>
+
+              <div className="sm:col-span-2">
+                <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                  Imagen de usuario:
+                </label>
+                <input
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
+                  aria-describedby="user_avatar_help"
+                  id="usuarioImagen"
+                  name="usuarioImagen"
+                  type="file"
+                  accept="image/*" // Solo imágenes
+                  onChange={(event) => {
+                    formik.setFieldValue(
+                      "usuarioImagen",
+                      event.currentTarget.files[0]
+                    );
+                  }}
+                />
+                <div
+                  className="mt-1 text-sm text-gray-500 "
+                  id="user_avatar_help"
+                >
+                  A profile picture is useful to confirm your are logged into
+                  your account
+                </div>
+              </div>
             </div>
 
             <div className="lg:flex lg:gap-1">
@@ -293,7 +321,18 @@ export default function UsuarioEditarPage() {
           </form>
         </section>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4  w-fit">
+          <div className=" px-4 pb-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
+            <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">Imagen</h2>
+            <div className="flex flex-col gap-3">
+              <img
+                width={450}
+                src="http://localhost:3000/api/v1/imagenes/usuarios/1745962102601-769728948.png"
+                alt="imagen-usuario"
+                className="rounded-md"
+              />
+            </div>
+          </div>
           <div className=" px-4 pb-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
             <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">
               Perfiles
@@ -314,15 +353,6 @@ export default function UsuarioEditarPage() {
             >
               Asignar Perfiles
             </button>
-          </div>
-
-          <div className=" px-4 pb-4 lg:pb-6 border border-gray-200 bg-gray-50 rounded-lg  h-fit">
-            <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">
-              Imagen
-            </h2>
-            <div className="flex flex-col gap-3">
-                <h1>Hola</h1>
-            </div>
           </div>
         </div>
       </div>
