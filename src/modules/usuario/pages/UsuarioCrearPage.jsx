@@ -35,6 +35,7 @@ export default function UsuarioCrearPage() {
       usuario: "",
       email: "",
       password: "",
+      usuarioImagen: null, // Campo para la imagen
     },
     validationSchema,
     onSubmit: (values) => {
@@ -206,6 +207,32 @@ export default function UsuarioCrearPage() {
                       {formik.errors.password}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                  Imagen de usuario:
+                </label>
+                <input
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
+                  aria-describedby="user_avatar_help"
+                  id="usuarioImagen"
+                  name="usuarioImagen"
+                  type="file"
+                  accept="image/*" // Solo imágenes
+                  onChange={(event) => {
+                    formik.setFieldValue(
+                      "usuarioImagen",
+                      event.currentTarget.files[0]
+                    );
+                  }}
+                />
+                <div
+                  className="mt-1 text-sm text-gray-500 "
+                  id="user_avatar_help"
+                >
+                  A profile picture is useful to confirm your are logged into
+                  your account
                 </div>
               </div>
             </div>

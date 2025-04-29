@@ -24,12 +24,12 @@ export function adaptarUsuario(usuariosRaw) {
 }
   
 export function adaptarCrearActualizarUsuarios(usuariosRaw) {
-  return {
-    sNombre: usuariosRaw.nombre,
-    sApellidoPaterno: usuariosRaw.apellidoPaterno,
-    sEmail: usuariosRaw.email,
-    sUsuario: usuariosRaw.usuario,
-    sApellidoMaterno: usuariosRaw.apellidoMaterno,
-    sPassword: usuariosRaw.password,
-  };
+  return usuariosRaw.map(usuario => ({
+    sNOMBRE: usuario.nombre,                // Asignamos el nombre a 'sNOMBRE'
+    sAPELLIDO_PATERNO: usuario.apellidoPaterno,  // Asignamos el apellido paterno a 'sAPELLIDO_PATERNO'
+    sEMAIL: usuario.email,                    // Asignamos el email a 'sEMAIL'
+    sUSUARIO: usuario.usuario,                // Asignamos el usuario a 'sUSUARIO'
+    sAPELLIDO_MATERNO: usuario.apellidoMaterno,  // Asignamos el apellido materno a 'sAPELLIDO_MATERNO'
+    sPASSWORD: usuario.password,              // Asignamos la contraseña a 'sPASSWORD'
+  }));
 }
