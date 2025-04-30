@@ -17,6 +17,7 @@ export function adaptarUsuario(usuariosRaw) {
     apellidoMaterno: usuariosRaw.sApellidoMaterno,
     email: usuariosRaw.sEmail,
     usuario: usuariosRaw.sUsuario,
+    usuarioImg: usuariosRaw.sUsuarioImg,
     activo: usuariosRaw.bActivo,
     fechaCreacion: usuariosRaw.dFechaCreacion,
     fechaActualizacion: usuariosRaw.dFechaActualizacion,

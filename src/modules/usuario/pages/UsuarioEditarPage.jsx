@@ -326,8 +326,12 @@ export default function UsuarioEditarPage() {
             <h2 className="my-4 sm:text-xl font-bold text-gray-900 ">Imagen</h2>
             <div className="flex flex-col gap-3">
               <img
-                width={450}
-                src="http://localhost:3000/api/v1/imagenes/usuarios/1745962102601-769728948.png"
+                width={350}
+                src={
+                  usuario.usuarioImg
+                    ? `http://localhost:3000/api/v1/imagenes/usuarios/${usuario.usuarioImg}`
+                    : "./user-default.jpg"
+                }
                 alt="imagen-usuario"
                 className="rounded-md"
               />
