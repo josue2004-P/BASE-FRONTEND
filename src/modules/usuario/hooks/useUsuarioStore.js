@@ -51,7 +51,7 @@ export const useUsuarioStore = () => {
         title: error,
         icon: "error",
       });
-      navigate("ususarios");
+      // navigate("ususarios");
     }
   };
 

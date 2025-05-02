@@ -9,8 +9,15 @@ export default function HomeAdminPage() {
     useUsuarioStore();
 
   const [nombreFiltro, setNombreFiltro] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // valor inicial por defecto
   const limit = 5;
+
+
+useEffect(() => {
+  if (filtros.pageActual != null) {
+    setPage(filtros.pageActual);
+  }
+}, [filtros.pageActual]);
 
   useEffect(() => {
     startUsuarios({ nombre: "", page, limit });
@@ -21,7 +28,6 @@ export default function HomeAdminPage() {
     startUsuarios({ nombre: nombreFiltro, page: 1, limit });
   };
 
-  
   if (isLoadingUsuarios) {
     return (
       <section className="bg-gray-50 p-3 sm:p-5">
