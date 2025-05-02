@@ -88,7 +88,22 @@ export const useUsuarioStore = () => {
 
   const startActualizarUsuario = async (id, datos) => {
     try {
-      const data = await usuarioService.actualizarUsuario(id, datos);
+      const formData = new FormData();
+
+      // Añadir los campos normales del formulario
+      formData.append("sNombre", datos.nombre);
+      formData.append("sApellidoPaterno", datos.apellidoPaterno);
+      formData.append("sApellidoMaterno", datos.apellidoMaterno);
+      formData.append("sUsuario", datos.usuario);
+      formData.append("sEmail", datos.email);
+      formData.append("sPassword", datos.password);
+
+      // Añadir la imagen
+      if (datos.usuarioImagen) {
+        formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
+      }
+
+      const data = await usuarioService.actualizarUsuario(id, formData);
       Swal.fire({
         title: data.message,
         icon: "success",

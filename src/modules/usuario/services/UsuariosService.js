@@ -1,7 +1,6 @@
 import { clienteAxios } from "../api/clienteAxios";
 import {
   adaptarUsuarios,
-  adaptarCrearActualizarUsuarios,
   adaptarUsuario,
 } from "../adapter/UsuariosAdapter";
 
@@ -41,14 +40,16 @@ export const usuarioService = {
       });
       return data.data;
     } catch (error) {
-      console.log(error)
       throw error?.response?.data?.message || "Error al crear el usuario";
     }
   },
-  actualizarUsuario: async (id, datos) => {
+  actualizarUsuario: async (id, formData) => {
     try {
-      const usuario = adaptarCrearActualizarUsuarios(datos);
-      const data = await clienteAxios.put(`/usuarios/${id}`, usuario);
+      const data = await clienteAxios.put(`/usuarios/${id}`, formData,{
+        headers: {
+          "Content-Type": "multipart/form-data", // Especificamos que estamos enviando datos multipart
+        },
+      });
       return data.data;
     } catch (error) {
       throw error?.response?.data?.message || "Error al actualizar el usuario";
