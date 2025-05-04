@@ -4,6 +4,8 @@ import { useAuthStore } from "../auth/hooks/useAuthStore";
 
 import ClienteRoutes from "../cliente/routes/ClienteRoutes";
 
+import Layout from "./Layouts/Layout";
+
 import AuthRoutes from "../auth/routes/AuthRoutes";
 import AdminRoutes from "../admin/routes/AdminRoutes";
 import NoPerfilRoutes from "../noPerfil/routes/NoPerfilRoutes";
@@ -30,12 +32,14 @@ export default function AppRouter() {
       ) : status === "authenticated" &&
         user.perfil.includes("ADMINISTRADOR") ? (
         // ADMINISTRADOR
-        <Route path="/*" element={<AdminRoutes />} />
+        <Route element={<Layout />}>
+          <Route path="/*" element={<AdminRoutes />} />
+        </Route>
       ) : status === "authenticated" && user.perfil.includes("CLIENTE") ? (
         // CLIENTE
-        <>
+        <Route element={<Layout />}>
           <Route path="/*" element={<ClienteRoutes />} />
-        </>
+        </Route>
       ) : (
         // USUARIOS SIN PERFIL
         <>

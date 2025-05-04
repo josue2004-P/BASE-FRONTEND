@@ -11,8 +11,6 @@ export default function AdminRoutes() {
   // Todas las rutas aquí son relativas al punto donde montes <AdminRoutes/>
   const routes = [
     {
-      // Puedes envolver todo en un layout si quieres
-      element: <Layout/>,
       children: [
         { index: true,               element: <HomeAdminPage /> },
         // NOTA el "/*" en usuarios: indica que debajo de /usuarios vienen rutas hijas
