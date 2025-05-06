@@ -3,7 +3,7 @@ export function adaptarUsuarios(usuariosRaw) {
     id: usuario.nId01Usuario,
     usuario: usuario.sUsuario,
     email: usuario.sEmail,
-    activo: usuario.bActivo,
+    activo: usuario.bInactivo,
     fechaCreacion: usuario.dFechaCreacion,
     nombreCompleto:usuario.sNombreCompleto
   }));
