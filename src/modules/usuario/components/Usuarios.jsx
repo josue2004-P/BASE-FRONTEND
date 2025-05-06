@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function Usuarios({ items,limit }) {
   const { fechaFormateada } = formatearFechaHora(items.fechaCreacion);
-  const { startEliminarUsuario } = useUsuarioStore();
+  const { startDesactivarUsuario } = useUsuarioStore();
 
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
@@ -80,7 +80,7 @@ export default function Usuarios({ items,limit }) {
             </ul>
             <div className="">
               <button
-                onClick={() => startEliminarUsuario(items,limit)}
+                onClick={() => startDesactivarUsuario(items,limit)}
                 type="button"
                 className="block py-2 px-4 text-sm text-start text-red-700 hover:bg-gray-100 w-full"
               >

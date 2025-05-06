@@ -1,6 +1,5 @@
 // src/routes/AdminRoutes.jsx
 import { Navigate, useRoutes } from 'react-router-dom';
-import Layout       from '../layouts/Layout';       // opcional: tu layout con sidebar/header
 import HomeAdminPage     from '../pages/HomeAdminPage';
 import {UsuariosRoutes} from '../../usuario';
 import {PermisosRoutes} from '../../permiso';

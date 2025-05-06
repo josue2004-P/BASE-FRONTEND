@@ -10,7 +10,7 @@ import { initFlowbite } from "flowbite";
 import { useEffect } from "react";
 
 export default function SidebarNavbar() {
-  const { status, user, startLogout } = useAuthStore();
+  const { startLogout } = useAuthStore();
 
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
@@ -46,7 +46,7 @@ export default function SidebarNavbar() {
               </button>
               <a className="flex ms-2 md:me-24">
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">
-                  Administrador Clientes
+                  Buenas Practicas
                 </span>
               </a>
             </div>
@@ -119,98 +119,6 @@ export default function SidebarNavbar() {
                 <span className="ms-3">Dashboard</span>
               </Link>
             </li>
-
-            {/* USUARIOS PERMISO: ADMINISTRADOR */}
-            {status === "authenticated" &&
-              user.perfil.includes("ADMINISTRADOR") && (
-                <li>
-                  <button
-                    type="button"
-                    className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
-                    aria-controls="dropdown-example"
-                    data-collapse-toggle="dropdown-example"
-                  >
-                    <FiUsers
-                      className="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
-                      size={25}
-                    />
-                    <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
-                      Usuarios
-                    </span>
-                    <svg
-                      className="w-3 h-3"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 10 6"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m1 1 4 4 4-4"
-                      />
-                    </svg>
-                  </button>
-                  <ul id="dropdown-example" className="hidden py-2 space-y-2">
-                    <li>
-                      <Link
-                        to={"/usuarios"}
-                        className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
-                      >
-                        <FiUsers
-                          className="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
-                          size={25}
-                        />
-                        <span className="ms-3">Usuarios</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to={"/permisos"}
-                        className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
-                      >
-                        <LuClipboardPen
-                          className="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
-                          size={25}
-                        />
-                        <span className="ms-3">Permisos</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to={"/perfiles"}
-                        className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
-                      >
-                        <FaClipboardUser
-                          className="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
-                          size={25}
-                        />
-                        <span className="ms-3">Perfiles</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              )}
-
-            {status === "authenticated" && user.perfil.includes("CLIENTE") && (
-              <>
-                <li>
-                  <Link
-                    to={"/clientes-ventas"}
-                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group "
-                  >
-                    <FiUsers
-                      className="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
-                      size={25}
-                    />
-                    <span className="ms-3">Clientes</span>
-                  </Link>
-                </li>
-
-              </>
-            )}
 
             <li>
               <button

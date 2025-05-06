@@ -17,7 +17,6 @@ export const useUsuarioStore = () => {
     (state) => state.usuario
   );
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const startUsuarios = async ({ nombre = "", page = 1, limit }) => {
     try {
@@ -118,7 +117,7 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startEliminarUsuario = async (items, limit) => {
+  const startDesactivarUsuario = async (items, limit) => {
     const result = await Swal.fire({
       title: `¿Deseas eliminar el usuario ${items.nombreCompleto}?`,
       text: `Los datos ya no podrán ser recuperados`,
@@ -131,7 +130,7 @@ export const useUsuarioStore = () => {
 
     if (result.isConfirmed) {
       try {
-        const data = await usuarioService.eliminarUsuario(items.id);
+        const data = await usuarioService.desactivarUsuario(items.id);
         Swal.fire({
           title: data.message || "Usuario eliminado correctamente.",
           icon: "success",
@@ -164,6 +163,6 @@ export const useUsuarioStore = () => {
     startOnLogoutUsuario,
     startCrearUsuario,
     startActualizarUsuario,
-    startEliminarUsuario,
+    startDesactivarUsuario,
   };
 };
