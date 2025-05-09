@@ -1,7 +1,8 @@
 import { clienteAxios } from "../api/clienteAxios";
 import {
   adaptarClientes,
-  adaptarUsuario,
+  adaptarCrearCliente,
+  adaptarCliente,
 } from "../adapter/clienteVentaAdapter";
 
 export const clienteVentaService = {
@@ -25,8 +26,8 @@ export const clienteVentaService = {
   obtenerCliente: async (id) => {
     try {
       const { data } = await clienteAxios.get(`/clientes/${id}`);
-      const usuario = adaptarUsuario(data.data);
-      return usuario;
+      const cliente = adaptarCliente(data.data);
+      return cliente;
     } catch (error) {
       throw error?.response?.data?.message || "Error al obtener el cliente";
     }
@@ -34,19 +35,18 @@ export const clienteVentaService = {
   crearCliente: async (cliente) => {
     // Recibe formData
     try {
-      const data = await clienteAxios.post("/clientes", cliente, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Especificamos que estamos enviando datos multipart
-        },
-      });
+      const createCliente = adaptarCrearCliente(cliente);
+
+      const data = await clienteAxios.post("/clientes", createCliente);
       return data.data;
     } catch (error) {
+      console.log(error)
       throw error?.response?.data?.message || "Error al crear el cliente";
     }
   },
   actualizarCliente: async (id, cliente) => {
     try {
-      const data = await clienteAxios.put(`/clientes/${id}`, cliente,{
+      const data = await clienteAxios.put(`/clientes/${id}`, cliente, {
         headers: {
           "Content-Type": "multipart/form-data", // Especificamos que estamos enviando datos multipart
         },

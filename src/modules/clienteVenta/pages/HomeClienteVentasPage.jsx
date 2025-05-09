@@ -36,8 +36,6 @@ export default function HomeClienteVentasPage() {
     );
   }
 
-  console.log(clientes)
-
   return (
     <section className="bg-gray-50  p-3 sm:p-5  ">
       <Header title="Listado de clientes" />

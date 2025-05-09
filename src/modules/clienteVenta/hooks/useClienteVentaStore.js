@@ -42,7 +42,7 @@ export const useClienteVentaStore = () => {
 
   const startCliente = async (id) => {
     try {
-      const data = await clienteVentaService.obtenerUsuario(id);
+      const data = await clienteVentaService.obtenerCliente(id);
       dispatch(onLoadCliente(data));
     } catch (error) {
       Swal.fire({
@@ -55,22 +55,8 @@ export const useClienteVentaStore = () => {
 
   const startCrearCliente = async (datos) => {
     try {
-      const formData = new FormData();
 
-      // Añadir los campos normales del formulario
-      formData.append("sNombre", datos.nombre);
-      formData.append("sApellidoPaterno", datos.apellidoPaterno);
-      formData.append("sApellidoMaterno", datos.apellidoMaterno);
-      formData.append("sUsuario", datos.usuario);
-      formData.append("sEmail", datos.email);
-      formData.append("sPassword", datos.password);
-
-      // Añadir la imagen
-      if (datos.usuarioImagen) {
-        formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
-      }
-
-      const data = await clienteVentaService.crearUsuario(formData); // Pasamos el formData al servicio
+      const data = await clienteVentaService.crearCliente(datos); // Pasamos el formData al servicio
       Swal.fire({
         title: data.message,
         icon: "success",

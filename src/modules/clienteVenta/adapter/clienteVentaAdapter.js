@@ -2,7 +2,7 @@ export function adaptarClientes(clienteRaw) {
   return clienteRaw.map(cliente => ({
     id: cliente.nNoCuenta06Clientes,
     nombreCliente: cliente.sNombreCliente,
-    apellidoClientePaterno: cliente.sApellidoPaternoCliente,
+    apellidoPaternoCliente: cliente.sApellidoPaternoCliente,
     apellidoMaternoCliente: cliente.sApellidoMaternoCliente,
     activo: cliente.bInactivo,
     fechaCreacion: cliente.dFechaCreacion,
@@ -10,18 +10,23 @@ export function adaptarClientes(clienteRaw) {
   }));
 }
 
-export function adaptarUsuario(usuariosRaw) {
+export function adaptarCliente(clienteRaw) {
   return {
-    id: usuariosRaw.nId01Usuario,
-    nombre: usuariosRaw.sNombre,
-    apellidoPaterno: usuariosRaw.sApellidoPaterno,
-    apellidoMaterno: usuariosRaw.sApellidoMaterno,
-    email: usuariosRaw.sEmail,
-    usuario: usuariosRaw.sUsuario,
-    usuarioImg: usuariosRaw.sUsuarioImg,
-    activo: usuariosRaw.bActivo,
-    fechaCreacion: usuariosRaw.dFechaCreacion,
-    fechaActualizacion: usuariosRaw.dFechaActualizacion,
+    id: clienteRaw.nNoCuenta06Clientes,
+    nombre: clienteRaw.sNombreCliente,
+    apellidoPaterno: clienteRaw.sApellidoPaternoCliente,
+    apellidoMaterno: clienteRaw.sApellidoMaternoCliente,
+    activo: clienteRaw.bActivo,
+    fechaCreacion: clienteRaw.dFechaCreacion,
+  };
+}
+
+export function adaptarCrearCliente(clienteRaw) {
+  return {
+    nNoCuenta06Clientes: clienteRaw.noCuenta,
+    sNombreCliente: clienteRaw.nombreCliente,
+    sApellidoPaternoCliente: clienteRaw.apellidoClientePaterno,
+    sApellidoMaternoCliente: clienteRaw.apellidoClienteMaterno,
   };
 }
   
