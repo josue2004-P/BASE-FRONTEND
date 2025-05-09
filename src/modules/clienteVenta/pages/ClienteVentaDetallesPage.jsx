@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../components/index.js";
 import { useFormik } from "formik";
+import { useClienteVentaStore } from "../hooks/useClienteVentaStore.js";
+import { useVentaGeneralStore } from "../../ventaGeneral/hooks/useVentaGeneralStore.js";
+
+import { useParams } from "react-router-dom";
 
 export default function ClienteVentaDetallesPage() {
-  const meses = [
-    "ENERO",
-    "FEBRERO",
-    "MARZO",
-    "ABRIL",
-    "MAYO",
-    "JUNIO",
-    "JULIO",
-    "AGOSTO",
-    "SEPTIEMBRE",
-    "OCTUBRE",
-    "NOVIEMBRE",
-    "DICIEMBRE",
-  ];
+  const { id } = useParams();
+
+  const { cliente, isLoadingClientes, startCliente } = useClienteVentaStore();
+  const { ventaGeneral, isLoadingVentaGeneral, startVentaGeneral } = useVentaGeneralStore();
+
+
+  useEffect(() => {
+    if (id) {
+      startCliente(id);
+      startVentaGeneral(id);
+    }
+  }, [id]);
+
+  // Obtener solo los meses (las claves del objeto)
+  const meses = Object.keys(ventaGeneral);
 
   const [años, setAnios] = useState(["2023", "2024", "2025"]);
 
@@ -25,21 +30,12 @@ export default function ClienteVentaDetallesPage() {
     setAnios([...años, (ultimo + 1).toString()]);
   };
 
-  const datosIniciales = {};
-
-  meses.forEach((mes) => {
-    datosIniciales[mes] = {};
-
-    años.forEach((anio) => {
-      datosIniciales[mes][anio] = ""; // valor por defecto
-    });
-  });
-  
   const formik = useFormik({
     initialValues: {
-      nNoCuenta06Clientes: 12212,
-      datos: datosIniciales,
+      nNoCuenta06Clientes: cliente?.id || "",
+      datos: ventaGeneral,
     },
+    enableReinitialize: true, // 🔑 permite que se reinicialicen los valores al cambiar permiso
     onSubmit: (values) => {
       console.log("✅ Datos bien estructurados:", values);
     },
@@ -49,6 +45,13 @@ export default function ClienteVentaDetallesPage() {
     formik.setFieldValue(`datos.${mes}.${año}`, valor);
   };
 
+  if (isLoadingClientes || !cliente?.nombre || isLoadingVentaGeneral) {
+    return (
+      <section className="bg-gray-50 p-3 sm:p-5 ">
+        <h2 className="text-2xl font-semibold">CARGANDO...</h2>
+      </section>
+    );
+  }
   return (
     <section className="bg-gray-50 p-3 sm:p-5">
       <Header title="Detalles" ruta="Detalles Venta Cliente" />
@@ -59,10 +62,10 @@ export default function ClienteVentaDetallesPage() {
             <div className="flex justify-between">
               <div>
                 <h2 className="mb-4 text-xl font-bold text-gray-900">
-                  Cliente: Pedro Pica Piedra
+                  Cliente: {`${cliente.nombre} ${cliente.apellidoPaterno} ${cliente.apellidoMaterno}`}
                 </h2>
                 <h2 className="mb-4 text-xl font-bold text-gray-900">
-                  No. Cuenta: 555098
+                  No. Cuenta: {cliente.id}
                 </h2>
               </div>
               <div>

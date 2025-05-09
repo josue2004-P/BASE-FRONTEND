@@ -24,6 +24,10 @@ import {
   clienteVentaSlice,
 } from "../modules/clienteVenta/store";
 
+import {
+  ventaGeneralSlice,
+} from "../modules/ventaGeneral/store";
+
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
@@ -33,6 +37,8 @@ export const store = configureStore({
     permiso: permisoSlice.reducer,
     perfil: perfilSlice.reducer,
     clienteVenta: clienteVentaSlice.reducer,
+    ventaGeneral: ventaGeneralSlice.reducer,
+
 
   },
   middleware: (getDefaultMiddleware) =>
