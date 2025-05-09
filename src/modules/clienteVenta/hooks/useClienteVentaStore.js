@@ -1,37 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
-import { usuarioService } from "../services/UsuarioService";
-import { useNavigate } from "react-router-dom";
+import { clienteVentaService } from "../services/ClienteVentaService";
 import Swal from "sweetalert2";
 
 import {
-  onLoadUsuarios,
-  onLogoutUsuario,
-  onLoadUsuario,
-  onFiltrosUsuario,
+  onLoadClientes,
+  onFiltrosClientes,
   onClearError,
   onSetError,
-} from "../store/usuarioSlice";
+  onLogoutCliente,
+  onLoadCliente,
+} from "../store/clienteVentaSlice";
 
-export const useUsuarioStore = () => {
-  const { filtros, error, usuarios, usuario, isLoadingUsuarios } = useSelector(
-    (state) => state.usuario
+export const useClienteVentaStore = () => {
+  const { filtros, error, clientes, cliente, isLoadingClientes } = useSelector(
+    (state) => state.clienteVenta
   );
   const dispatch = useDispatch();
 
-  const startUsuarios = async ({ nombre = "", page = 1, limit }) => {
+  const startClientes = async ({ noCuenta = "", page = 1, limit }) => {
     try {
-      const { data, pageActual, totalPages, totalUsuarios } =
-        await usuarioService.obtenerUsuarios({
-          nombre,
+      const { data, pageActual, totalPages, totalClientes } =
+        await clienteVentaService.obtenerClientes({
+          noCuenta,
           page,
           limit,
         });
-      dispatch(onLoadUsuarios(data));
+      dispatch(onLoadClientes(data));
       dispatch(
-        onFiltrosUsuario({
+        onFiltrosClientes({
           pageActual: pageActual,
           totalPages: totalPages,
-          totalUsuarios: totalUsuarios,
+          totalClientes: totalClientes,
         })
       );
 
@@ -41,10 +40,10 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startUsuario = async (id) => {
+  const startCliente = async (id) => {
     try {
-      const data = await usuarioService.obtenerUsuario(id);
-      dispatch(onLoadUsuario(data));
+      const data = await clienteVentaService.obtenerUsuario(id);
+      dispatch(onLoadCliente(data));
     } catch (error) {
       Swal.fire({
         title: error,
@@ -54,7 +53,7 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startCrearUsuario = async (datos) => {
+  const startCrearCliente = async (datos) => {
     try {
       const formData = new FormData();
 
@@ -71,7 +70,7 @@ export const useUsuarioStore = () => {
         formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
       }
 
-      const data = await usuarioService.crearUsuario(formData); // Pasamos el formData al servicio
+      const data = await clienteVentaService.crearUsuario(formData); // Pasamos el formData al servicio
       Swal.fire({
         title: data.message,
         icon: "success",
@@ -85,7 +84,7 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startActualizarUsuario = async (id, datos) => {
+  const startActualizarCliente = async (id, datos) => {
     try {
       const formData = new FormData();
 
@@ -102,22 +101,22 @@ export const useUsuarioStore = () => {
         formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
       }
 
-      const data = await usuarioService.actualizarUsuario(id, formData);
+      const data = await clienteVentaService.actualizarUsuario(id, formData);
       Swal.fire({
         title: data.message,
         icon: "success",
       });
-      startUsuario(id);
+      startCliente(id);
     } catch (error) {
       Swal.fire({
         title: error,
         icon: "error",
       });
-      startUsuarios({ nombre: "" });
+      startClientes({ nombre: "" });
     }
   };
 
-  const startDesactivarUsuario = async (items, limit) => {
+  const startDesactivarCliente = async (items, limit) => {
     const result = await Swal.fire({
       title: `¿Deseas eliminar el usuario ${items.nombreCompleto}?`,
       text: `Los datos ya no podrán ser recuperados`,
@@ -130,12 +129,12 @@ export const useUsuarioStore = () => {
 
     if (result.isConfirmed) {
       try {
-        const data = await usuarioService.desactivarUsuario(items.id);
+        const data = await clienteVentaService.desactivarUsuario(items.id);
         Swal.fire({
           title: data.message || "Usuario eliminado correctamente.",
           icon: "success",
         });
-        startUsuarios({ limit: limit });
+        startClientes({ limit: limit });
       } catch (error) {
         Swal.fire({
           title: "Error al eliminar",
@@ -146,23 +145,23 @@ export const useUsuarioStore = () => {
     }
   };
 
-  const startOnLogoutUsuario = (id) => {
-    dispatch(onLogoutUsuario(id));
+  const startOnLogoutCliente = (id) => {
+    dispatch(onLogoutCliente(id));
   };
 
   return {
     //* Propiedades
-    usuarios,
-    usuario,
-    isLoadingUsuarios,
+    clientes,
+    cliente,
+    isLoadingClientes,
     error,
     filtros,
     //* Métodos
-    startUsuarios,
-    startUsuario,
-    startOnLogoutUsuario,
-    startCrearUsuario,
-    startActualizarUsuario,
-    startDesactivarUsuario,
+    startClientes,
+    startCliente,
+    startOnLogoutCliente,
+    startCrearCliente,
+    startActualizarCliente,
+    startDesactivarCliente,
   };
 };

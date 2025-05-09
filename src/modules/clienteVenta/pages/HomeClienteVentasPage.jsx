@@ -1,6 +1,43 @@
 import { Link } from "react-router-dom";
-import { Header } from "../components";
+import { Header,ClientesVenta } from "../components";
+import { IoIosSearch } from "react-icons/io";
+import { useClienteVentaStore } from "../hooks/useClienteVentaStore";
+import { useEffect, useState } from "react";
+
 export default function HomeClienteVentasPage() {
+  const { filtros, error, clientes, isLoadingClientes, startClientes } =
+    useClienteVentaStore();
+
+  const [noCuentaFiltro, setNoCuentaFiltro] = useState("");
+  const [page, setPage] = useState(1); // valor inicial por defecto
+  const limit = 5;
+
+  useEffect(() => {
+    if (filtros.pageActual != null) {
+      setPage(filtros.pageActual);
+    }
+  }, [filtros.pageActual]);
+
+  useEffect(() => {
+    startClientes({ noCuenta: "", page, limit });
+  }, [page]);
+
+  const handleSearch = () => {
+    setPage(1); // reinicia a la primera página al hacer búsqueda
+    startClientes({ noCuenta: noCuentaFiltro, page: 1, limit });
+  };
+
+  if (isLoadingClientes) {
+    return (
+      <section className="bg-gray-50 p-3 sm:p-5">
+        {/* <SkeletonUsuarios /> */}
+        <h1>Cargando</h1>
+      </section>
+    );
+  }
+
+  console.log(clientes)
+
   return (
     <section className="bg-gray-50  p-3 sm:p-5  ">
       <Header title="Listado de clientes" />
@@ -13,23 +50,23 @@ export default function HomeClienteVentasPage() {
                 <label className="sr-only">Search</label>
                 <div className="relative w-full lg:w-fit xl:w-[22rem] 2xl:w-100  ">
                   <div className="absolute text-gray-800 inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    {/* <IoIosSearch size={20} /> */}
+                    <IoIosSearch size={20} />
                   </div>
                   <input
                     type="text"
                     id="table-search-permission"
                     className=" py-2 ps-10 text-sm  text-gray-900 border border-gray-300 rounded-lg w-full  bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                     placeholder="Buscar cliente"
-                    // value={nombreFiltro}
-                    // onChange={(e) => setNombreFiltro(e.target.value)}
-                    // onKeyDown={(e) => {
-                    //   if (e.key === "Enter") handleSearch();
-                    // }}
-                    // onClick={() => {
-                    //   setNombreFiltro("");
-                    //   setPage(1);
-                    //   startPermisos({ nombre: "", page: 1, limit });
-                    // }}
+                    value={noCuentaFiltro}
+                    onChange={(e) => setNoCuentaFiltro(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSearch();
+                    }}
+                    onClick={() => {
+                      setNoCuentaFiltro("");
+                      setPage(1);
+                      startClientes({ noCuenta: "", page: 1, limit });
+                    }}
                   />
                 </div>
               </form>
@@ -184,7 +221,7 @@ export default function HomeClienteVentasPage() {
                 </tr>
               </thead>
               <tbody>
-                {/* {error && (
+                {error && (
                 <tr>
                   <td
                     colSpan={5}
@@ -196,7 +233,7 @@ export default function HomeClienteVentasPage() {
                 </tr>
               )}
 
-              {permisos.length === 0 && !error ? (
+              {clientes.length === 0 && !error ? (
                 <tr>
                   <td
                     colSpan={5}
@@ -206,64 +243,10 @@ export default function HomeClienteVentasPage() {
                   </td>
                 </tr>
               ) : (
-                permisos.map((item, index) => (
-                  <Permisos key={index} items={item} />
+                clientes.map((item, index) => (
+                  <ClientesVenta key={index} items={item} limit={limit}/>
                 ))
-              )} */}
-                <tr className="bg-white border-b border-gray-200 hover:bg-gray-50">
-                  <td className="px-6 py-4 text-gray-900 whitespace-nowrap">
-                    109220
-                  </td>
-                  <td className="px-6 py-4">Pedro Pica Piedra</td>
-                  <td className="px-6 py-4">05-05-2025</td>
-                  <td className="px-4 py-3 ">
-                    <div className=" flex  items-center justify-center">
-                      <button
-                        // id={`${items.id}-dropdown-button`}
-                        // data-dropdown-toggle={`${items.id}-dropdown`}
-                        className=" inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none "
-                        type="button"
-                      >
-                        <svg
-                          className="w-5 h-5"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                        </svg>
-                      </button>
-                      <div
-                        // id={`${items.id}-dropdown`}
-                        className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow "
-                      >
-                        <ul
-                          className="py-2 text-sm text-gray-700 "
-                          // aria-labelledby={`${items.id}-dropdown-button`}
-                        >
-                          <li>
-                            <Link
-                              // to={`editar/${items.id}`}
-                              className=" text-blue-600 py-4 px-4 hover:underline"
-                            >
-                              Editar Permiso
-                            </Link>
-                          </li>
-                        </ul>
-                        <div className="">
-                          <button
-                            // onClick={() => startEliminarPermiso(items)}
-                            type="button"
-                            className="block py-2 px-4 text-sm text-start text-red-700 hover:bg-gray-100 w-full"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+              )}
               </tbody>
             </table>
           </div>
@@ -275,18 +258,18 @@ export default function HomeClienteVentasPage() {
             <span className="text-sm font-normal text-gray-500">
               Mostrando
               <span className="font-semibold text-gray-900 ml-1">
-                {/* {permisos.length} */}
+                {clientes.length}
               </span>
               <span className="mx-1">de</span>
               <span className="font-semibold text-gray-900 ">
-                {/* {filtros.totalUsuarios} */}
+                {filtros.totalClientes}
               </span>
             </span>
             <ul className="inline-flex items-stretch -space-x-px">
               <li>
                 <button
-                  // disabled={page === 1}
-                  // onClick={() => setPage((prev) => prev - 1)}
+                  disabled={page === 1}
+                  onClick={() => setPage((prev) => prev - 1)}
                   className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
                 >
                   <span className="sr-only">Previous</span>
@@ -307,14 +290,14 @@ export default function HomeClienteVentasPage() {
               </li>
               <li>
                 <span className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">
-                  {/* {page} */}1
+                  {page}
                 </span>
               </li>
 
               <li>
                 <button
-                  // disabled={page === filtros.totalPages}
-                  // onClick={() => setPage((prev) => prev + 1)}
+                  disabled={page === filtros.totalPages}
+                  onClick={() => setPage((prev) => prev + 1)}
                   className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
                 >
                   <span className="sr-only">Next</span>

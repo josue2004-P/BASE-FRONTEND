@@ -20,10 +20,10 @@ export const usuarioSlice = createSlice({
     },
     onLogoutUsuario: (state, { payload }) => {
       if (payload) {
-        (state.isLoadingPerfiles = false), (state.perfil = []);
+        (state.isLoadingUsuarios = false), (state.usuario = []);
       }
-      (state.isLoadingPerfiles = false), (state.perfiles = []);
-      state.perfil = [];
+      (state.isLoadingUsuarios = false), (state.usuarios = []);
+      state.usuario = [];
       state.filtros = [];
     },
     onFiltrosUsuario: (state, { payload }) => {
@@ -32,7 +32,7 @@ export const usuarioSlice = createSlice({
     },
     onSetError: (state, { payload }) => {
       state.error = payload;
-      state.isLoadingPerfiles = false;
+      state.isLoadingUsuarios = false;
     },
     onClearError: (state) => {
       state.error = null;
@@ -49,4 +49,4 @@ export const {
     onClearError,
     onFiltrosUsuario
 } =
-  usuarioSlice.actions;
+usuarioSlice.actions;

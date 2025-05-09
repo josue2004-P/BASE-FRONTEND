@@ -55,9 +55,9 @@ export const usuarioService = {
       throw error?.response?.data?.message || "Error al actualizar el usuario";
     }
   },
-  desactivarUsuario: async (id) => {
+  eliminarUsuario: async (id) => {
     try {
-      const data = await clienteAxios.put(`/usuarios/${id}/desactivar`);
+      const data = await clienteAxios.delete(`/usuarios/${id}`);
       return data.data;
     } catch (error) {
       throw error?.response?.data?.message || "Error al eliminar el usuario";

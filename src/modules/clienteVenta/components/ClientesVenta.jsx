@@ -1,48 +1,22 @@
 import PropTypes from "prop-types";
-import { formatearFechaHora } from "../helpers/formatearFechaHora";
 import { Link } from "react-router-dom";
-import { useUsuarioStore } from "../hooks/useUsuarioStore";
-import { initFlowbite } from "flowbite";
+import { formatearFechaHora } from "../helpers/formatearFechaHora";
 import { useEffect } from "react";
+import { initFlowbite } from "flowbite";
+import { useClienteVentaStore } from "../hooks/useClienteVentaStore";
 
-export default function Usuarios({ items,limit }) {
+export default function ClientesVenta({ items, limit }) {
   const { fechaFormateada } = formatearFechaHora(items.fechaCreacion);
-  const { startDesactivarUsuario } = useUsuarioStore();
+  const { startDesactivarCliente } = useClienteVentaStore();
 
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
   }, []);
-
   return (
-    <tr className="bg-white border-b  border-gray-200 hover:bg-gray-50 ">
-      <th
-        scope="row"
-        className="flex items-center  py-4 text-gray-900 whitespace-nowrap "
-      >
-        <div className="ps-3">
-          <div className="text-base font-semibold">{items.nombreCompleto}</div>
-          <div className="font-normal text-gray-500">{items.email}</div>
-        </div>
-      </th>
-      <td className="px-6 py-4">{items.usuario}</td>
+    <tr className="bg-white border-b border-gray-200 hover:bg-gray-50">
+      <td className="px-6 py-4 text-gray-900 whitespace-nowrap">{items.id}</td>
+      <td className="px-6 py-4"> {items.nombreCompleto}</td>
       <td className="px-6 py-4">{fechaFormateada}</td>
-      <td className="px-6 py-4 ">
-        <div className="flex items-center">
-          {!items.activo ? (
-            <>
-              <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-              Activo
-            </>
-          ) : (
-            <>
-              <>
-                <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                No Activo
-              </>
-            </>
-          )}
-        </div>
-      </td>
       <td className="px-4 py-3 ">
         <div className=" flex  items-center justify-center">
           <button
@@ -74,13 +48,13 @@ export default function Usuarios({ items,limit }) {
                   to={`editar/${items.id}`}
                   className=" text-blue-600 py-4 px-4 hover:underline"
                 >
-                  Editar Usuario
+                  Editar Cliente
                 </Link>
               </li>
             </ul>
             <div className="">
               <button
-                onClick={() => startDesactivarUsuario(items,limit)}
+                onClick={() => startDesactivarCliente(items, limit)}
                 type="button"
                 className="block py-2 px-4 text-sm text-start text-red-700 hover:bg-gray-100 w-full"
               >
@@ -93,8 +67,7 @@ export default function Usuarios({ items,limit }) {
     </tr>
   );
 }
-
-Usuarios.propTypes = {
+ClientesVenta.propTypes = {
   items: PropTypes.object,
-  limit: PropTypes.number
+  limit: PropTypes.number,
 };

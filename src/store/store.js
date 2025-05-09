@@ -20,6 +20,10 @@ import {
   perfilSlice,
 } from "../modules/perfil/store";
 
+import {
+  clienteVentaSlice,
+} from "../modules/clienteVenta/store";
+
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
@@ -28,7 +32,7 @@ export const store = configureStore({
 
     permiso: permisoSlice.reducer,
     perfil: perfilSlice.reducer,
-
+    clienteVenta: clienteVentaSlice.reducer,
 
   },
   middleware: (getDefaultMiddleware) =>
