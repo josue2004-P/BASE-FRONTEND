@@ -72,22 +72,7 @@ export const useClienteVentaStore = () => {
 
   const startActualizarCliente = async (id, datos) => {
     try {
-      const formData = new FormData();
-
-      // Añadir los campos normales del formulario
-      formData.append("sNombre", datos.nombre);
-      formData.append("sApellidoPaterno", datos.apellidoPaterno);
-      formData.append("sApellidoMaterno", datos.apellidoMaterno);
-      formData.append("sUsuario", datos.usuario);
-      formData.append("sEmail", datos.email);
-      formData.append("sPassword", datos.password);
-
-      // Añadir la imagen
-      if (datos.usuarioImagen) {
-        formData.append("usuarioImagen", datos.usuarioImagen); // 'usuarioImagen' es el nombre del campo en el backend
-      }
-
-      const data = await clienteVentaService.actualizarUsuario(id, formData);
+      const data = await clienteVentaService.actualizarCliente(id, datos);
       Swal.fire({
         title: data.message,
         icon: "success",

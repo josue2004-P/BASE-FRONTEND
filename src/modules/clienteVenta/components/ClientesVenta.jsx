@@ -52,6 +52,19 @@ export default function ClientesVenta({ items, limit }) {
                 </Link>
               </li>
             </ul>
+            <ul
+              className="py-2 text-sm text-gray-700 "
+              aria-labelledby={`${items.id}-dropdown-button`}
+            >
+              <li>
+                <Link
+                  to={`detalles/${items.id}`}
+                  className=" text-blue-600 py-4 px-4 hover:underline"
+                >
+                Venta General
+                </Link>
+              </li>
+            </ul>
             <div className="">
               <button
                 onClick={() => startDesactivarCliente(items, limit)}

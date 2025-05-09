@@ -3,6 +3,7 @@ import {
   adaptarClientes,
   adaptarCrearCliente,
   adaptarCliente,
+  adaptarActualizarCliente,
 } from "../adapter/clienteVentaAdapter";
 
 export const clienteVentaService = {
@@ -40,19 +41,18 @@ export const clienteVentaService = {
       const data = await clienteAxios.post("/clientes", createCliente);
       return data.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw error?.response?.data?.message || "Error al crear el cliente";
     }
   },
   actualizarCliente: async (id, cliente) => {
     try {
-      const data = await clienteAxios.put(`/clientes/${id}`, cliente, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Especificamos que estamos enviando datos multipart
-        },
-      });
+      const updateCliente = adaptarActualizarCliente(cliente);
+
+      const data = await clienteAxios.put(`/clientes/${id}`, updateCliente);
       return data.data;
     } catch (error) {
+      console.log(error)
       throw error?.response?.data?.message || "Error al actualizar el cliente";
     }
   },
