@@ -10,7 +10,7 @@ export default function ClienteVentaDetallesPage() {
   const { id } = useParams();
 
   const { cliente, isLoadingClientes, startCliente } = useClienteVentaStore();
-  const { ventaGeneral, isLoadingVentaGeneral, startVentaGeneral } = useVentaGeneralStore();
+  const { ventaGeneral, isLoadingVentaGeneral, startVentaGeneral,startCrearVentaGeneral } = useVentaGeneralStore();
 
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function ClienteVentaDetallesPage() {
     },
     enableReinitialize: true, // 🔑 permite que se reinicialicen los valores al cambiar permiso
     onSubmit: (values) => {
-      console.log("✅ Datos bien estructurados:", values);
+      startCrearVentaGeneral(values)
     },
   });
 
@@ -78,6 +78,11 @@ export default function ClienteVentaDetallesPage() {
               </div>
             </div>
 
+                {formik.touched.datos && formik.errors.datos && (
+                  <div className="text-red-600 text-sm mt-1">
+                    {formik.errors.datos}
+                  </div>
+                )}
             <div className="overflow-x-auto">
               <table className="table-auto border border-gray-300 rounded-lg shadow-sm bg-white w-full">
                 <thead>
