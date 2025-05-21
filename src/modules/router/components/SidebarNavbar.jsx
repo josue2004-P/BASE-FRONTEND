@@ -19,6 +19,8 @@ export default function SidebarNavbar() {
     toogleSidebar();
   };
 
+  
+
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
   }, []);
@@ -34,9 +36,9 @@ export default function SidebarNavbar() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside); // ⬅️ Usa 'click' en vez de 'mousedown'
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isSidebarOpen, toogleSidebar]); // Añade isSidebarOpen y toogleSidebar al array de dependencias
 
@@ -47,7 +49,10 @@ export default function SidebarNavbar() {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button
-                onClick={() => handleSidebar()}
+                onClick={(e) => {
+                  e.stopPropagation(); // ⛔️ evita que el clic dispare handleClickOutside
+                  handleSidebar();     // 🔁 toggle del sidebar
+                }}
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
               >
