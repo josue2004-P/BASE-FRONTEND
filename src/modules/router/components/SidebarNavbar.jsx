@@ -1,4 +1,5 @@
 import { useAuthStore } from "../../auth/hooks/useAuthStore";
+import { useUiStore } from "../../ui/hooks/useUiStore";
 
 import { MdDashboard } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
@@ -7,14 +8,37 @@ import { Link } from "react-router-dom";
 import { LuClipboardPen } from "react-icons/lu";
 import { FaClipboardUser } from "react-icons/fa6";
 import { initFlowbite } from "flowbite";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function SidebarNavbar() {
+  const sidebarRef = useRef(null);
   const { status, user, startLogout } = useAuthStore();
+  const { isSidebarOpen, toogleSidebar } = useUiStore();
+
+  const handleSidebar = () => {
+    toogleSidebar();
+  };
 
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isSidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        toogleSidebar();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSidebarOpen, toogleSidebar]); // Añade isSidebarOpen y toogleSidebar al array de dependencias
 
   return (
     <>
@@ -23,9 +47,7 @@ export default function SidebarNavbar() {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button
-                data-drawer-target="logo-sidebar"
-                data-drawer-toggle="logo-sidebar"
-                aria-controls="logo-sidebar"
+                onClick={() => handleSidebar()}
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
               >
@@ -102,14 +124,20 @@ export default function SidebarNavbar() {
 
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 mt-12 z-40 w-60 h-screen transition-transform -translate-x-full sm:translate-x-0 shadow-xl"
+        className={`fixed top-0 left-0 mt-12 z-40 w-60 h-screen transition-transform sm:translate-x-0 shadow-xl ${
+          isSidebarOpen ? "" : "-translate-x-full"
+        }`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+        <div
+          className="h-full px-3 py-4 overflow-y-auto bg-gray-50 "
+          ref={sidebarRef}
+        >
           <ul className="space-y-2 font-medium">
             <li>
               <Link
                 to={"/"}
+                onClick={() => handleSidebar()}
                 className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
               >
                 <MdDashboard
@@ -157,6 +185,7 @@ export default function SidebarNavbar() {
                     <li>
                       <Link
                         to={"/usuarios"}
+                        onClick={() => handleSidebar()}
                         className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
                       >
                         <FiUsers
@@ -169,6 +198,7 @@ export default function SidebarNavbar() {
                     <li>
                       <Link
                         to={"/permisos"}
+                        onClick={() => handleSidebar()}
                         className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
                       >
                         <LuClipboardPen
@@ -181,6 +211,7 @@ export default function SidebarNavbar() {
                     <li>
                       <Link
                         to={"/perfiles"}
+                        onClick={() => handleSidebar()}
                         className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group pl-11"
                       >
                         <FaClipboardUser
@@ -199,6 +230,7 @@ export default function SidebarNavbar() {
                 <li>
                   <Link
                     to={"/clientes-ventas"}
+                    onClick={() => handleSidebar()}
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group "
                   >
                     <FiUsers
@@ -208,7 +240,6 @@ export default function SidebarNavbar() {
                     <span className="ms-3">Clientes</span>
                   </Link>
                 </li>
-
               </>
             )}
 
