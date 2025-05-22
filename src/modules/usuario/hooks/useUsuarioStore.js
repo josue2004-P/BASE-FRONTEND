@@ -17,6 +17,7 @@ export const useUsuarioStore = () => {
     (state) => state.usuario
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const startUsuarios = async ({ nombre = "", page = 1, limit }) => {
     try {
@@ -76,7 +77,7 @@ export const useUsuarioStore = () => {
         title: data.message,
         icon: "success",
       });
-      // navigate("/usuarios");
+      navigate("/usuarios");
     } catch (error) {
       Swal.fire({
         title: error,

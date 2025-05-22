@@ -1,6 +1,6 @@
 import { usePerfilStore } from "../hooks/usePerfilStore";
 import { useEffect, useState } from "react";
-import { Header, Perfiles } from "../components";
+import { Header, Perfiles,SkeletonPerfiles } from "../components";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,11 @@ export default function PerfilesPage() {
   };
 
   if (isLoadingPerfiles) {
-    <h2 className="text-2xl font-semibold">CARGANDO</h2>;
+    return (
+      <section className="bg-gray-50 p-3 sm:p-5">
+        <SkeletonPerfiles />
+      </section>
+    );
   }
   return (
     <>
