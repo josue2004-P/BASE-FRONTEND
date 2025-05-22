@@ -50,8 +50,8 @@ export default function SidebarNavbar() {
             <div className="flex items-center justify-start rtl:justify-end">
               <button
                 onClick={(e) => {
-                  e.stopPropagation(); // ⛔️ evita que el clic dispare handleClickOutside
-                  handleSidebar();     // 🔁 toggle del sidebar
+                  e.stopPropagation(); 
+                  handleSidebar();     
                 }}
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
