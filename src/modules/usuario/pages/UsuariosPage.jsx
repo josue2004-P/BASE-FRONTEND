@@ -12,12 +12,11 @@ export default function HomeAdminPage() {
   const [page, setPage] = useState(1); // valor inicial por defecto
   const limit = 5;
 
-
-useEffect(() => {
-  if (filtros.pageActual != null) {
-    setPage(filtros.pageActual);
-  }
-}, [filtros.pageActual]);
+  useEffect(() => {
+    if (filtros.pageActual != null) {
+      setPage(filtros.pageActual);
+    }
+  }, [filtros.pageActual]);
 
   useEffect(() => {
     startUsuarios({ nombre: "", page, limit });
@@ -35,7 +34,7 @@ useEffect(() => {
       </section>
     );
   }
-  
+
   return (
     <>
       <section className="bg-gray-50  p-3 sm:p-5  ">
@@ -43,7 +42,6 @@ useEffect(() => {
 
         <div className="mx-auto  mt-4 px-4 lg:px-12">
           <div className="bg-white  relative shadow-md sm:rounded-lg overflow-hidden">
-
             <div className="flex flex-col lg:flex-row items-center justify-between space-y-3 lg:space-y-0 lg:space-x-4 p-4">
               <div className="w-full  md:w-1/2 my-auto">
                 <form className="flex items-center h-full">
@@ -224,36 +222,37 @@ useEffect(() => {
                   </tr>
                 </thead>
                 <tbody>
-                  {error && (
+                  {error && usuarios.length === 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-red-600 bg-red-100 p-2 rounded"
-                      >
-                        El usuario que ingresaste no está registrado en el
-                        sistema
+                      <td colSpan={5} className="p-4 bg-red-100 rounded">
+                        <div className="text-center">
+                          <p className="text-lg font-semibold text-red-700">
+                            ¡Error!
+                          </p>
+                          <p className="text-red-600">{error}</p>
+                        </div>
                       </td>
                     </tr>
                   )}
 
-                  {usuarios.length === 0 && !error ? (
+                  {error && usuarios.length > 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-orange-600 bg-red-100 p-2 rounded"
-                      >
-                        {error}
+                      <td colSpan={5} className="p-4 bg-yellow-100 rounded">
+                        <div className="text-center">
+                          <p className="text-yellow-700">Nota: {error}</p>
+                        </div>
                       </td>
                     </tr>
-                  ) : (
-                    usuarios.map((item, index) => (
-                      <Usuarios key={index} items={item} limit={limit} />
-                    ))
                   )}
+
+                  {usuarios.length > 0 &&
+                    usuarios.map((item, index) => (
+                      <Usuarios key={index} items={item} />
+                    ))}
                 </tbody>
               </table>
             </div>
-            
+
             <nav
               className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
               aria-label="Table navigation"

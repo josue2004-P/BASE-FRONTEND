@@ -5,7 +5,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 export default function PerfilesPage() {
-  const { filtros,error, perfiles, isLoadingPerfiles, startPerfiles } =
+  const { filtros, error, perfiles, isLoadingPerfiles, startPerfiles } =
     usePerfilStore();
 
   const [nombreFiltro, setNombreFiltro] = useState("");
@@ -31,7 +31,6 @@ export default function PerfilesPage() {
 
         <div className="mx-auto  mt-4 px-4 lg:px-12">
           <div className="bg-white  relative shadow-md sm:rounded-lg overflow-hidden">
-
             <div className="flex flex-col lg:flex-row items-center justify-between space-y-3 lg:space-y-0 lg:space-x-4 p-4">
               <div className="w-full  md:w-1/2 my-auto">
                 <form className="flex items-center h-full">
@@ -212,32 +211,33 @@ export default function PerfilesPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {error && (
+                  {error && perfiles.length === 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-red-600 bg-red-100 p-2 rounded"
-                      >
-                        El perfil que ingresaste no está registrado en el
-                        sistema
+                      <td colSpan={5} className="p-4 bg-red-100 rounded">
+                        <div className="text-center">
+                          <p className="text-lg font-semibold text-red-700">
+                            ¡Error!
+                          </p>
+                          <p className="text-red-600">{error}</p>
+                        </div>
                       </td>
                     </tr>
                   )}
 
-                  {perfiles.length === 0 && !error ? (
+                  {error && perfiles.length > 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-orange-600 bg-red-100 p-2 rounded"
-                      >
-                        {error}
+                      <td colSpan={5} className="p-4 bg-yellow-100 rounded">
+                        <div className="text-center">
+                          <p className="text-yellow-700">Nota: {error}</p>
+                        </div>
                       </td>
                     </tr>
-                  ) : (
+                  )}
+
+                  {perfiles.length > 0 &&
                     perfiles.map((item, index) => (
                       <Perfiles key={index} items={item} />
-                    ))
-                  )}
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -309,7 +309,6 @@ export default function PerfilesPage() {
                 </li>
               </ul>
             </nav>
-
           </div>
         </div>
       </section>

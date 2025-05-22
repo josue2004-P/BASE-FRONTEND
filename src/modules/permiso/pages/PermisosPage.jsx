@@ -21,7 +21,6 @@ export default function PermisosPage() {
     startPermisos({ nombre: nombreFiltro, page: 1, limit });
   };
 
-
   if (isLoadingPermisos) {
     <section className="bg-gray-50 p-3 sm:p-5">
       <SkeletonPermisos />
@@ -215,32 +214,33 @@ export default function PermisosPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {error && (
+                  {error && permisos.length === 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-red-600 bg-red-100 p-2 rounded"
-                      >
-                        El permiso que ingresaste no está registrado en el
-                        sistema
+                      <td colSpan={5} className="p-4 bg-red-100 rounded">
+                        <div className="text-center">
+                          <p className="text-lg font-semibold text-red-700">
+                            ¡Error!
+                          </p>
+                          <p className="text-red-600">{error}</p>
+                        </div>
                       </td>
                     </tr>
                   )}
 
-                  {permisos.length === 0 && !error ? (
+                  {error && permisos.length > 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="text-center text-orange-600 bg-red-100 p-2 rounded"
-                      >
-                        {error}
+                      <td colSpan={5} className="p-4 bg-yellow-100 rounded">
+                        <div className="text-center">
+                          <p className="text-yellow-700">Nota: {error}</p>
+                        </div>
                       </td>
                     </tr>
-                  ) : (
+                  )}
+
+                  {permisos.length > 0 &&
                     permisos.map((item, index) => (
                       <Permisos key={index} items={item} />
-                    ))
-                  )}
+                    ))}
                 </tbody>
               </table>
             </div>
