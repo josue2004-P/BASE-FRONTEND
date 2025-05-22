@@ -19,8 +19,6 @@ export default function SidebarNavbar() {
     toogleSidebar();
   };
 
-  
-
   useEffect(() => {
     initFlowbite(); // Inicializa dropdowns, tooltips, modals, etc.
   }, []);
